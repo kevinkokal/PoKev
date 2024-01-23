@@ -27,8 +27,8 @@ extension SetsEndpoint: PokemonTCGEndpoint {
     }
 
     var header: [String: String]? {
-        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
-            else { fatalError("API_KEY missing in Info.plist / Info.plist missing") }
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "Api key") as? String
+            else { fatalError("Api key missing in Info.plist / Info.plist missing") }
         switch self {
         case .sets:
             return [

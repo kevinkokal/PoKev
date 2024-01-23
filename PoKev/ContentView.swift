@@ -8,15 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+ @StateObject var viewModel = HomeViewModel()
+
+ var body: some View {
+  NavigationView {
+   ScrollView(showsIndicators: false) {
+    LazyVStack {
+     ForEach(viewModel.sets, id: \.id) { set in
+         Text(set.name)
+     }
     }
+    .padding()
+    .task {
+     await viewModel.fetchSets()
+    }
+    .alert("", isPresented: $viewModel.hasError) {} message: {
+     Text("Error fetching sets")
+    }
+   }
+   .navigationTitle("Pokemon TCG Sets")
+   .navigationBarTitleDisplayMode(.automatic)
+  }
+ }
 }
 
 #Preview {
