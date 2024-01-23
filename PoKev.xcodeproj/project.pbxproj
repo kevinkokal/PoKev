@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC7C7E1E2B60255A00454F5D /* PoKevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */; };
+		AC7C7E202B60255A00454F5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1F2B60255A00454F5D /* ContentView.swift */; };
+		AC7C7E222B60255B00454F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7C7E212B60255B00454F5D /* Assets.xcassets */; };
+		AC7C7E262B60255B00454F5D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7C7E252B60255B00454F5D /* Preview Assets.xcassets */; };
+		AC7C7E302B60255C00454F5D /* PoKevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */; };
+		AC7C7E3A2B60255C00454F5D /* PoKevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E392B60255C00454F5D /* PoKevUITests.swift */; };
+		AC7C7E3C2B60255C00454F5D /* PoKevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC7C7E2C2B60255C00454F5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC7C7E122B60255900454F5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC7C7E192B60255900454F5D;
+			remoteInfo = PoKev;
+		};
+		AC7C7E362B60255C00454F5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC7C7E122B60255900454F5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC7C7E192B60255900454F5D;
+			remoteInfo = PoKev;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AC7C7E1A2B60255A00454F5D /* PoKev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoKev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevApp.swift; sourceTree = "<group>"; };
+		AC7C7E1F2B60255A00454F5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AC7C7E212B60255B00454F5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC7C7E232B60255B00454F5D /* PoKev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PoKev.entitlements; sourceTree = "<group>"; };
+		AC7C7E252B60255B00454F5D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AC7C7E2B2B60255C00454F5D /* PoKevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoKevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevTests.swift; sourceTree = "<group>"; };
+		AC7C7E352B60255C00454F5D /* PoKevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoKevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC7C7E392B60255C00454F5D /* PoKevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITests.swift; sourceTree = "<group>"; };
+		AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC7C7E172B60255900454F5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E282B60255C00454F5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E322B60255C00454F5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC7C7E112B60255900454F5D = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E1C2B60255A00454F5D /* PoKev */,
+				AC7C7E2E2B60255C00454F5D /* PoKevTests */,
+				AC7C7E382B60255C00454F5D /* PoKevUITests */,
+				AC7C7E1B2B60255A00454F5D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC7C7E1B2B60255A00454F5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E1A2B60255A00454F5D /* PoKev.app */,
+				AC7C7E2B2B60255C00454F5D /* PoKevTests.xctest */,
+				AC7C7E352B60255C00454F5D /* PoKevUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC7C7E1C2B60255A00454F5D /* PoKev */ = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */,
+				AC7C7E1F2B60255A00454F5D /* ContentView.swift */,
+				AC7C7E212B60255B00454F5D /* Assets.xcassets */,
+				AC7C7E232B60255B00454F5D /* PoKev.entitlements */,
+				AC7C7E242B60255B00454F5D /* Preview Content */,
+			);
+			path = PoKev;
+			sourceTree = "<group>";
+		};
+		AC7C7E242B60255B00454F5D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E252B60255B00454F5D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AC7C7E2E2B60255C00454F5D /* PoKevTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */,
+			);
+			path = PoKevTests;
+			sourceTree = "<group>";
+		};
+		AC7C7E382B60255C00454F5D /* PoKevUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AC7C7E392B60255C00454F5D /* PoKevUITests.swift */,
+				AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */,
+			);
+			path = PoKevUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC7C7E192B60255900454F5D /* PoKev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC7C7E3F2B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKev" */;
+			buildPhases = (
+				AC7C7E162B60255900454F5D /* Sources */,
+				AC7C7E172B60255900454F5D /* Frameworks */,
+				AC7C7E182B60255900454F5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PoKev;
+			productName = PoKev;
+			productReference = AC7C7E1A2B60255A00454F5D /* PoKev.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AC7C7E2A2B60255C00454F5D /* PoKevTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC7C7E422B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKevTests" */;
+			buildPhases = (
+				AC7C7E272B60255C00454F5D /* Sources */,
+				AC7C7E282B60255C00454F5D /* Frameworks */,
+				AC7C7E292B60255C00454F5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC7C7E2D2B60255C00454F5D /* PBXTargetDependency */,
+			);
+			name = PoKevTests;
+			productName = PoKevTests;
+			productReference = AC7C7E2B2B60255C00454F5D /* PoKevTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AC7C7E342B60255C00454F5D /* PoKevUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC7C7E452B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKevUITests" */;
+			buildPhases = (
+				AC7C7E312B60255C00454F5D /* Sources */,
+				AC7C7E322B60255C00454F5D /* Frameworks */,
+				AC7C7E332B60255C00454F5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC7C7E372B60255C00454F5D /* PBXTargetDependency */,
+			);
+			name = PoKevUITests;
+			productName = PoKevUITests;
+			productReference = AC7C7E352B60255C00454F5D /* PoKevUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC7C7E122B60255900454F5D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					AC7C7E192B60255900454F5D = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					AC7C7E2A2B60255C00454F5D = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = AC7C7E192B60255900454F5D;
+					};
+					AC7C7E342B60255C00454F5D = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = AC7C7E192B60255900454F5D;
+					};
+				};
+			};
+			buildConfigurationList = AC7C7E152B60255900454F5D /* Build configuration list for PBXProject "PoKev" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC7C7E112B60255900454F5D;
+			productRefGroup = AC7C7E1B2B60255A00454F5D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC7C7E192B60255900454F5D /* PoKev */,
+				AC7C7E2A2B60255C00454F5D /* PoKevTests */,
+				AC7C7E342B60255C00454F5D /* PoKevUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC7C7E182B60255900454F5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC7C7E262B60255B00454F5D /* Preview Assets.xcassets in Resources */,
+				AC7C7E222B60255B00454F5D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E292B60255C00454F5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E332B60255C00454F5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC7C7E162B60255900454F5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC7C7E202B60255A00454F5D /* ContentView.swift in Sources */,
+				AC7C7E1E2B60255A00454F5D /* PoKevApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E272B60255C00454F5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC7C7E302B60255C00454F5D /* PoKevTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC7C7E312B60255C00454F5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC7C7E3C2B60255C00454F5D /* PoKevUITestsLaunchTests.swift in Sources */,
+				AC7C7E3A2B60255C00454F5D /* PoKevUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC7C7E2D2B60255C00454F5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC7C7E192B60255900454F5D /* PoKev */;
+			targetProxy = AC7C7E2C2B60255C00454F5D /* PBXContainerItemProxy */;
+		};
+		AC7C7E372B60255C00454F5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC7C7E192B60255900454F5D /* PoKev */;
+			targetProxy = AC7C7E362B60255C00454F5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AC7C7E3D2B60255C00454F5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AC7C7E3E2B60255C00454F5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		AC7C7E402B60255C00454F5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PoKev/PoKev.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PoKev/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC7C7E412B60255C00454F5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PoKev/PoKev.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PoKev/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AC7C7E432B60255C00454F5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PoKev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PoKev";
+			};
+			name = Debug;
+		};
+		AC7C7E442B60255C00454F5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PoKev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PoKev";
+			};
+			name = Release;
+		};
+		AC7C7E462B60255C00454F5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKevUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PoKev;
+			};
+			name = Debug;
+		};
+		AC7C7E472B60255C00454F5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PoKevUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PoKev;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC7C7E152B60255900454F5D /* Build configuration list for PBXProject "PoKev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC7C7E3D2B60255C00454F5D /* Debug */,
+				AC7C7E3E2B60255C00454F5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC7C7E3F2B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC7C7E402B60255C00454F5D /* Debug */,
+				AC7C7E412B60255C00454F5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC7C7E422B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKevTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC7C7E432B60255C00454F5D /* Debug */,
+				AC7C7E442B60255C00454F5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC7C7E452B60255C00454F5D /* Build configuration list for PBXNativeTarget "PoKevUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC7C7E462B60255C00454F5D /* Debug */,
+				AC7C7E472B60255C00454F5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC7C7E122B60255900454F5D /* Project object */;
+}
