@@ -32,11 +32,32 @@ struct CardView: View {
             Text(viewModel.cardSubtitle)
                 .font(.system(.subheadline, design: .rounded))
                 .lineLimit(1)
+            Spacer()
+            HStack {
+                Spacer()
+                if let url = viewModel.tcgPlayerURL {
+                    Link(destination: url) {
+                        Image(systemName: "cart")
+                            .font(.title2)
+                    }
+                } else {
+                    Image(systemName: "cart.badge.questionmark")
+                        .font(.title2)
+                }
+                Spacer()
+                Button(action: {
+                    print("info")
+                }) {
+                    Image(systemName: "info.circle")
+                        .font(.title2)
+                }
+                Spacer()
+            }
         }
         .padding(.all, 16)
-        .background(RoundedRectangle(cornerRadius: 25)
-        .fill(.white)
-        .shadow(color: .gray, radius: 2, x: 0, y: 2))
+        .background(RoundedRectangle(cornerRadius: 24)
+        .fill(viewModel.backgroundColor)
+        .shadow(color: .gray, radius: 3, x: 0, y: 3))
     }
 }
 

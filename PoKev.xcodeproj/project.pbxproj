@@ -27,6 +27,7 @@
 		AC5D8E4C2B669AFB008A025A /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E4B2B669AFB008A025A /* CardsViewModel.swift */; };
 		AC5D8E4F2B669B88008A025A /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E4E2B669B88008A025A /* CardViewModel.swift */; };
 		AC5D8E512B669B91008A025A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E502B669B91008A025A /* CardView.swift */; };
+		AC5D8E542B66EA20008A025A /* Color+FromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E532B66EA20008A025A /* Color+FromHex.swift */; };
 		AC7C7E1E2B60255A00454F5D /* PoKevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */; };
 		AC7C7E202B60255A00454F5D /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1F2B60255A00454F5D /* SetsView.swift */; };
 		AC7C7E222B60255B00454F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7C7E212B60255B00454F5D /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		AC5D8E4B2B669AFB008A025A /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		AC5D8E4E2B669B88008A025A /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		AC5D8E502B669B91008A025A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		AC5D8E532B66EA20008A025A /* Color+FromHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+FromHex.swift"; sourceTree = "<group>"; };
 		AC7C7E1A2B60255A00454F5D /* PoKev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoKev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevApp.swift; sourceTree = "<group>"; };
 		AC7C7E1F2B60255A00454F5D /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
@@ -211,6 +213,14 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
+		AC5D8E522B66E9E5008A025A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AC5D8E532B66EA20008A025A /* Color+FromHex.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		AC7C7E112B60255900454F5D = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +247,7 @@
 				AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */,
 				AC1D37422B604F5A009161C3 /* Network */,
 				AC5D8E412B62FDEF008A025A /* Views */,
+				AC5D8E522B66E9E5008A025A /* Utils */,
 				AC7C7E212B60255B00454F5D /* Assets.xcassets */,
 				AC7C7E232B60255B00454F5D /* PoKev.entitlements */,
 				AC7C7E242B60255B00454F5D /* Preview Content */,
@@ -400,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5D8E3C2B62AD3A008A025A /* PokemonTCGCard.swift in Sources */,
+				AC5D8E542B66EA20008A025A /* Color+FromHex.swift in Sources */,
 				AC1D37612B605111009161C3 /* PokemonTCGSet.swift in Sources */,
 				AC1D37542B604F74009161C3 /* PokemonTCGService.swift in Sources */,
 				AC5D8E452B62FE1F008A025A /* SetView.swift in Sources */,

@@ -29,6 +29,8 @@ struct SetView: View {
             VStack(alignment: .trailing) {
                 Text(viewModel.setTitle)
                     .lineLimit(1)
+                    .font(.headline)
+                    .fontDesign(.rounded)
                 Spacer()
                 AsyncImage(url: viewModel.symbolURL) { image in
                     image
@@ -61,11 +63,11 @@ struct SetView: View {
                     .lineLimit(1)
             })
             .presentationDetents([.fraction(0.3)])
-            .presentationCornerRadius(25)
+            .presentationCornerRadius(24)
         })
-        .background(RoundedRectangle(cornerRadius: 25)
+        .background(RoundedRectangle(cornerRadius: 24)
             .fill(Color.white)
-            .shadow(color: .gray, radius: 2, x: 0, y: 2))
+            .shadow(color: .gray, radius: 3, x: 0, y: 3))
         .padding(.all, 8)
     }
 }

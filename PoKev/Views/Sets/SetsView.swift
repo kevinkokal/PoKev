@@ -21,7 +21,7 @@ struct SetsView: View {
                     Spacer()
                 }
             }
-            ScrollView(showsIndicators: false) {
+            ScrollView() {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.sets) { set in
                         NavigationLink {
@@ -32,6 +32,7 @@ struct SetsView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                 }
+                .padding([.leading, .trailing], 8)
             }
             .task {
                 await viewModel.fetchSets()

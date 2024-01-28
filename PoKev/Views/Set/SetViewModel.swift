@@ -23,7 +23,7 @@ final class SetViewModel {
     }
     
     var setTitle: String {
-        return set.name + " Set"
+        return set.name
     }
     
     var seriesTitle: String {

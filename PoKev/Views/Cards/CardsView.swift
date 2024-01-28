@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardsView: View {
     @State var viewModel: CardsViewModel
-
+    
     private var gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
     
     init(set: PokemonTCGSet) {
@@ -17,31 +17,41 @@ struct CardsView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            //TODO: is there a better solution? (progress view isn't actually vertically centered)
-            if viewModel.isFetchingCards {
-                VStack {
-                    Spacer()
-                    ProgressView()
-                        .controlSize(.extraLarge)
-                    Spacer()
+        //TODO: is there a better solution? (progress view isn't actually vertically centered)
+        if viewModel.isFetchingCards {
+            VStack {
+                Spacer()
+                ProgressView()
+                    .controlSize(.extraLarge)
+                Spacer()
+            }
+        }
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: gridItemLayout, spacing: 16) {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card, set: viewModel.set)
                 }
             }
-            ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: gridItemLayout, spacing: 16) {
-                    ForEach(viewModel.cards) { card in
-                        CardView(card: card, set: viewModel.set)
-                    }
+            .padding(.all, 16)
+        }
+        .task {
+            await viewModel.fetchCards()
+        }
+        .alert("", isPresented: $viewModel.shouldPresentError) {} message: {
+            Text(viewModel.errorMessage)
+        }
+        .navigationTitle(viewModel.navigationTitle)
+        .navigationBarTitleDisplayMode(.automatic)
+        .toolbar {
+            ToolbarItem {
+                Button(action: {
+                    print("filter")
+                }) {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                        .resizable()
+                        .scaledToFit()
                 }
             }
-            .task {
-                await viewModel.fetchCards()
-            }
-            .alert("", isPresented: $viewModel.shouldPresentError) {} message: {
-                Text(viewModel.errorMessage)
-            }
-            .navigationTitle(viewModel.navigationTitle)
-            .navigationBarTitleDisplayMode(.automatic)
         }
     }
 }
@@ -49,3 +59,4 @@ struct CardsView: View {
 #Preview {
     CardsView(set: PokemonTCGSet(id: "test", name: "Test", series: "Dev", printedTotal: 16, total: 19, releaseDate: "2024/01/26", images: PokemonTCGSetImages(symbol: "https://images.pokemontcg.io/base3/symbol.png", logo: "https://images.pokemontcg.io/base3/logo.png")))
 }
+
