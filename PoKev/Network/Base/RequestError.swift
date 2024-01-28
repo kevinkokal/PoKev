@@ -19,7 +19,13 @@ enum RequestError: Error {
             return "Decode error"
         case .unauthorized:
             return "Session expired"
-        default:
+        case .invalidURL:
+            return "Invalid url"
+        case .noResponse:
+            return "No response"
+        case .unexpectedStatusCode:
+            return "Unexpected status code"
+        case .unknown:
             return "Unknown error"
         }
     }

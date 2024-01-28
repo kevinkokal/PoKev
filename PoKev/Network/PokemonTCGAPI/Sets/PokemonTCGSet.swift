@@ -12,7 +12,7 @@ struct PokemonTCGSetImages: Decodable {
     let logo: String
 }
 
-struct PokemonTCGSet: Decodable {
+struct PokemonTCGSet: Decodable, Identifiable {
     let id: String
     let name: String
     let series: String

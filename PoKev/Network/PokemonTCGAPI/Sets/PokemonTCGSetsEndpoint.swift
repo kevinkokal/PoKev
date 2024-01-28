@@ -18,29 +18,11 @@ extension SetsEndpoint: PokemonTCGEndpoint {
             return "/v2/sets"
         }
     }
-
-    var method: RequestMethod {
-        switch self {
-        case .sets:
-            return .get
-        }
-    }
-
-    var header: [String: String]? {
-        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "Api key") as? String
-            else { fatalError("Api key missing in Info.plist / Info.plist missing") }
-        switch self {
-        case .sets:
-            return [
-                "X-Api-Key": apiKey
-            ]
-        }
-    }
     
-    var body: [String: String]? {
-        switch self {
-        case .sets:
-            return nil
-        }
+    var queryItems: [URLQueryItem]? {
+        return [
+            URLQueryItem(name: "select", value: "id,name,series,printedTotal,total,releaseDate,images"),
+            URLQueryItem(name: "orderBy", value: "releaseDate,name")
+        ]
     }
 }

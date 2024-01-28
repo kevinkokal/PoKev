@@ -9,10 +9,15 @@ import Foundation
 
 protocol PokemonTCGServiceable {
     func getSets() async throws -> [PokemonTCGSet]
+    func getCards(forSet setId: String) async throws -> [PokemonTCGCard]
 }
 
 struct PokemonTCGService: HTTPClient, PokemonTCGServiceable {
     func getSets() async throws -> [PokemonTCGSet] {
         return try await sendRequest(endpoint: SetsEndpoint.sets, responseModel: PokemonTCGSetsResponse.self).sets
+    }
+    
+    func getCards(forSet setId: String) async throws -> [PokemonTCGCard] {
+        return try await sendRequest(endpoint: CardsEndpoint.cardsBySetId(setId), responseModel: PokemonTCGCardsResponse.self).cards
     }
 }

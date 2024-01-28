@@ -20,6 +20,7 @@ extension HTTPClient {
         urlComponents.scheme = endpoint.scheme
         urlComponents.host = endpoint.host
         urlComponents.path = endpoint.path
+        urlComponents.queryItems = endpoint.queryItems
         
         guard let url = urlComponents.url else {
             throw RequestError.invalidURL
@@ -40,17 +41,19 @@ extension HTTPClient {
             }
             switch response.statusCode {
             case 200...299:
-                guard let decodedResponse = try? JSONDecoder().decode(responseModel, from: data) else {
+                do {
+                    return try JSONDecoder().decode(responseModel, from: data)
+                } catch let error {
+                    print(error)
                     throw RequestError.decode
                 }
-                return decodedResponse
             case 401:
                 throw RequestError.unauthorized
             default:
                 throw RequestError.unexpectedStatusCode
             }
-        } catch {
-            throw RequestError.unknown
+        } catch let error {
+            throw error
         }
     }
 }
