@@ -10,6 +10,8 @@ import SwiftUI
 struct CardsView: View {
     @State var viewModel: CardsViewModel
 
+    private var gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
+    
     init(set: PokemonTCGSet) {
         viewModel = CardsViewModel(set: set)
     }
@@ -26,9 +28,9 @@ struct CardsView: View {
                 }
             }
             ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 0) {
+                LazyVGrid(columns: gridItemLayout, spacing: 16) {
                     ForEach(viewModel.cards) { card in
-                        CardView(card: card)
+                        CardView(card: card, set: viewModel.set)
                     }
                 }
             }

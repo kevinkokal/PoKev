@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 final class CardsViewModel {
-    private let set: PokemonTCGSet
+    let set: PokemonTCGSet
     private(set) var cards = [PokemonTCGCard]()
     private(set) var error: RequestError?
     var shouldPresentError = false

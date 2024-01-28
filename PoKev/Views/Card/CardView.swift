@@ -6,19 +6,40 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct CardView: View {
     @State var viewModel: CardViewModel
     
-    init(card: PokemonTCGCard) {
-        viewModel = CardViewModel(card: card)
+    init(card: PokemonTCGCard, set: PokemonTCGSet) {
+        viewModel = CardViewModel(card: card, set: set)
     }
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            AsyncImage(url: viewModel.largeImageURL) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+            } placeholder: {
+                ProgressView()
+                    .controlSize(.large)
+            }
+                .frame(width: 128, height: 128)
+            Text(viewModel.cardTitle)
+                .font(.system(.headline, design: .rounded))
+                .lineLimit(1)
+            Text(viewModel.cardSubtitle)
+                .font(.system(.subheadline, design: .rounded))
+                .lineLimit(1)
+        }
+        .padding(.all, 16)
+        .background(RoundedRectangle(cornerRadius: 25)
+        .fill(.white)
+        .shadow(color: .gray, radius: 2, x: 0, y: 2))
     }
 }
 
 #Preview {
-    CardView(card: PokemonTCGCard(id: "test", name: "Test Card", number: "4", images: PokemonTCGCardImages(small: "https://images.pokemontcg.io/base1/24.png", large: "https://images.pokemontcg.io/base1/24_hires.png"), tcgplayer: PokemonTCGPlayerData(url: "https://prices.pokemontcg.io/tcgplayer/base1-24", updatedAt: "2024/01/25", prices: PokemonTCGPlayerPriceData(holofoil: nil, normal: PokemonTCGPlayerPriceData.PriceDataForType(low: 0.19, mid: 0.99, high: 20.0, market: 1.23, directLow: nil), reverseHolofoil: nil))))
+    CardView(card: PokemonTCGCard(id: "test", name: "Charmeleon", number: "4", images: PokemonTCGCardImages(small: "https://images.pokemontcg.io/base1/24.png", large: "https://images.pokemontcg.io/base1/24_hires.png"), tcgplayer: PokemonTCGPlayerData(url: "https://prices.pokemontcg.io/tcgplayer/base1-24", updatedAt: "2024/01/25", prices: PokemonTCGPlayerPriceData(holofoil: nil, normal: PokemonTCGPlayerPriceData.PriceDataForType(low: 0.19, mid: 0.99, high: 20.0, market: 1.23, directLow: nil), reverseHolofoil: nil))), set: PokemonTCGSet(id: "test", name: "Test", series: "Dev", printedTotal: 16, total: 19, releaseDate: "2024/01/26", images: PokemonTCGSetImages(symbol: "https://images.pokemontcg.io/base3/symbol.png", logo: "https://images.pokemontcg.io/base3/logo.png")))
 }
