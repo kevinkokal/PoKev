@@ -17,22 +17,19 @@ struct CardsView: View {
     }
     
     var body: some View {
-        //TODO: is there a better solution? (progress view isn't actually vertically centered)
-        if viewModel.isFetchingCards {
-            VStack {
-                Spacer()
-                ProgressView()
-                    .controlSize(.extraLarge)
-                Spacer()
-            }
-        }
-        ScrollView(showsIndicators: false) {
-            LazyVGrid(columns: gridItemLayout, spacing: 16) {
-                ForEach(viewModel.cards) { card in
-                    CardView(card: card, set: viewModel.set)
+        Group {
+            if viewModel.isFetchingCards {
+                PokeBallProgressView()
+            } else {
+                ScrollView(showsIndicators: false) {
+                    LazyVGrid(columns: gridItemLayout, spacing: 16) {
+                        ForEach(viewModel.cards) { card in
+                            CardView(card: card, set: viewModel.set)
+                        }
+                    }
+                    .padding(16)
                 }
             }
-            .padding(.all, 16)
         }
         .task {
             await viewModel.fetchCards()

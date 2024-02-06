@@ -49,6 +49,8 @@ extension HTTPClient {
                 }
             case 401:
                 throw RequestError.unauthorized
+            case 418:
+                throw RequestError.teapot
             default:
                 throw RequestError.unexpectedStatusCode
             }

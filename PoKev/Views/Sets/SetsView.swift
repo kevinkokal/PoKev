@@ -9,30 +9,27 @@ import SwiftUI
 
 struct SetsView: View {
     @State var viewModel = SetsViewModel()
-
+    
     var body: some View {
         NavigationStack {
-            //TODO: is there a better solution? (progress view isn't actually vertically centered)
-            if viewModel.isFetchingSets {
-                VStack {
-                    Spacer()
-                    ProgressView()
-                        .controlSize(.extraLarge)
-                    Spacer()
-                }
-            }
-            ScrollView() {
-                LazyVStack(spacing: 0) {
-                    ForEach(viewModel.sets) { set in
-                        NavigationLink {
-                            CardsView(set: set)
-                        } label: {
-                            SetView(set: set)
+            Group {
+                if viewModel.isFetchingSets {
+                    PokeBallProgressView()
+                } else {
+                    ScrollView() {
+                        LazyVStack(spacing: 0) {
+                            ForEach(viewModel.sets) { set in
+                                NavigationLink {
+                                    CardsView(set: set)
+                                } label: {
+                                    SetView(set: set)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .padding([.leading, .trailing], 8)
                     }
                 }
-                .padding([.leading, .trailing], 8)
             }
             .task {
                 await viewModel.fetchSets()
@@ -43,6 +40,29 @@ struct SetsView: View {
             .navigationTitle("Pokemon TCG Sets")
             .navigationBarTitleDisplayMode(.automatic)
         }
+    }
+}
+
+struct PokeBallProgressView: View {
+    @State var angle: Double = 0.0
+    @State var isAnimating = false
+    
+    var foreverAnimation: Animation {
+        Animation
+            .spring(duration: 0.4, bounce: 0)
+            .delay(0.2)
+            .repeatForever(autoreverses: false)
+    }
+    
+    var body: some View {
+        Image(.ball)
+            .resizable()
+            .frame(width: 128, height: 128)
+            .rotationEffect(Angle(degrees: isAnimating ? 360.0 : 0.0))
+            .animation(self.foreverAnimation, value: isAnimating)
+            .onAppear {
+                isAnimating = true
+            }
     }
 }
 

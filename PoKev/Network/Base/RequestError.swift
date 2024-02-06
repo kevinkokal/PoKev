@@ -9,6 +9,7 @@ enum RequestError: Error {
     case decode
     case invalidURL
     case noResponse
+    case teapot
     case unauthorized
     case unexpectedStatusCode
     case unknown
@@ -23,6 +24,8 @@ enum RequestError: Error {
             return "Invalid url"
         case .noResponse:
             return "No response"
+        case .teapot:
+            return "I'm a little teapot"
         case .unexpectedStatusCode:
             return "Unexpected status code"
         case .unknown:
