@@ -24,10 +24,7 @@ final class SetsViewModel {
     }
 
     func fetchSets() async {
-        //TODO: Added is empty check to prevent spinner showing up when it shouldn't...
-        if sets.isEmpty{
-            isFetchingSets = true
-        }
+        isFetchingSets = true
         do {
             sets = try await PokemonTCGService().getSets()
             isFetchingSets = false

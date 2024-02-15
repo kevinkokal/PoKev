@@ -11,12 +11,22 @@ import Observation
 @Observable
 final class CardsViewModel {
     let set: PokemonTCGSet
+    
     private(set) var cards = [PokemonTCGCard]()
+    var isFetchingCards = false
+    
     private(set) var error: RequestError?
     var shouldPresentError = false
-    var isFetchingCards = false
+    
     var cardDetailIsPresented = false
     var selectedCard: PokemonTCGCard?
+    
+    var refinementMenuIsPresented = false
+    var refinement = CardsRefinement() {
+        didSet {
+            refineCards()
+        }
+    }
     
     var errorMessage: String {
         if let error = self.error {
@@ -39,10 +49,7 @@ final class CardsViewModel {
     }
     
     func fetchCards() async {
-        //TODO: Added is empty check to prevent spinner showing up when it shouldn't...
-        if cards.isEmpty {
-            isFetchingCards = true
-        }
+        isFetchingCards = true
         do {
             cards = try await PokemonTCGService().getCards(forSet: set.id)
             isFetchingCards = false
@@ -52,4 +59,61 @@ final class CardsViewModel {
             isFetchingCards = false
         }
     }
+    
+    private func refineCards() {
+        let filteredCards = cards.filter { card in
+            if refinement.filters.onlyPotentialDeals {
+                return card.isPotentialDeal
+            }
+            
+            return true
+        }
+        
+        let sortedFilteredCards = filteredCards.sorted { card1, card2 in
+            switch refinement.sortOrder {
+            case .alphabetical:
+                return card1.name < card2.name
+            case .setNumber:
+                return card1.number < card2.number
+            case .pokedexNumber:
+                // In almost all cases, there will only be one pokedex number. When there are multiple, just grab the first.
+                if let card1FirstPokedexNumber = card1.nationalPokedexNumbers.first {
+                    if let card2FirstPokedexNumber = card2.nationalPokedexNumbers.first {
+                        return card1FirstPokedexNumber < card2FirstPokedexNumber
+                    } else {
+                        return true
+                    }
+                } else {
+                    return card2.nationalPokedexNumbers.first == nil
+                }
+            }
+        }
+        
+        cards = sortedFilteredCards
+    }
 }
+
+struct CardsRefinement {
+    enum SortOrder {
+        case alphabetical
+        case setNumber
+        case pokedexNumber
+    }
+    
+    struct Filters {
+        var onlyPotentialDeals = false
+        
+        var isDefault: Bool {
+            return !onlyPotentialDeals
+        }
+    }
+    
+    var sortOrder: SortOrder = .setNumber
+    var filters = Filters()
+    
+    var isDefault: Bool {
+        return sortOrder == .setNumber && filters.isDefault
+    }
+}
+
+

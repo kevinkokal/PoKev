@@ -52,11 +52,15 @@ struct CardsView: View {
             }
             ToolbarItem {
                 Button(action: {
-                    print("filter")
+                    viewModel.refinementMenuIsPresented = true
                 }) {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .resizable()
-                        .scaledToFit()
+                    if viewModel.refinement.isDefault {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                    }
                 }
             }
         }
@@ -65,6 +69,20 @@ struct CardsView: View {
                 CardDetailView(viewModel: CardDetailViewModel(card: selectedCard))
                     .presentationDetents([.fraction(0.75)])
                     .presentationDragIndicator(.visible)
+            }
+        }
+        .sheet(isPresented: $viewModel.refinementMenuIsPresented) {
+            Form {
+                Section(header: Text("Sort")) {
+                    Picker("Sort Order", selection: $viewModel.refinement.sortOrder) {
+                        Text("Alphabetical").tag(CardsRefinement.SortOrder.alphabetical)
+                        Text("Number in Set").tag(CardsRefinement.SortOrder.setNumber)
+                        Text("Number in Pokedex").tag(CardsRefinement.SortOrder.pokedexNumber)
+                    }
+                }
+                Section(header: Text("Filters")) {
+                    Toggle("Only show potential deals", isOn: $viewModel.refinement.filters.onlyPotentialDeals)
+                }
             }
         }
     }
