@@ -24,7 +24,7 @@ extension CardsEndpoint: PokemonTCGEndpoint {
         case .cardsBySetId(let setId):
             return [
                 URLQueryItem(name: "q", value: "set.id:\(setId) nationalPokedexNumbers:[1 TO 151]"),
-                URLQueryItem(name: "orderBy", value: "nationalPokedexNumbers,number"),
+                URLQueryItem(name: "orderBy", value: "number"),
                 URLQueryItem(name: "select", value: "id,name,set,number,images,tcgplayer")
             ]
         }

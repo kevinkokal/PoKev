@@ -5,6 +5,7 @@
 //  Created by Kevin Kokal on 1/23/24.
 //
 
+import LookingGlassUI
 import SwiftUI
 
 struct SetsView: View {
@@ -32,11 +33,11 @@ struct SetsView: View {
                 }
             }
             .task {
-                await viewModel.fetchSets()
+                if viewModel.sets.isEmpty {
+                    await viewModel.fetchSets()
+                }
             }
-            .alert("", isPresented: $viewModel.shouldPresentError) {} message: {
-                Text(viewModel.errorMessage)
-            }
+            .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
             .navigationTitle("Pokemon TCG Sets")
             .navigationBarTitleDisplayMode(.automatic)
         }

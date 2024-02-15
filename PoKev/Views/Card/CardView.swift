@@ -5,6 +5,7 @@
 //  Created by Kevin Kokal on 1/28/24.
 //
 
+import LookingGlassUI
 import SwiftUI
 import UIKit
 
@@ -17,7 +18,8 @@ struct CardView: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: viewModel.largeImageURL) { image in
+            AsyncImage(url: viewModel.imageURL) { image in
+                
                 image
                     .resizable()
                     .scaledToFit()

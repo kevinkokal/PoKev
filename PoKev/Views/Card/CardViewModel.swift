@@ -9,13 +9,12 @@ import Foundation
 import Observation
 import SwiftUI
 
-@Observable
 final class CardViewModel {
-    @ObservationIgnored let card: PokemonTCGCard
-    @ObservationIgnored let set: PokemonTCGSet
+    let card: PokemonTCGCard
+    let set: PokemonTCGSet
 
-    var largeImageURL: URL? {
-        if let urlString = card.images.large {
+    var imageURL: URL? {
+        if let urlString = card.images.small {
             return URL(string: urlString)
         }
         return nil

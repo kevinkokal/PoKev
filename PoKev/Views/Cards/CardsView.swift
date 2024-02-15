@@ -24,7 +24,10 @@ struct CardsView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
                         ForEach(viewModel.cards) { card in
-                            CardView(card: card, set: viewModel.set)
+                            CardView(card: card, set: viewModel.set).onTapGesture {
+                                viewModel.cardDetailIsPresented = true
+                                viewModel.selectedCard = card
+                            }
                         }
                     }
                     .padding(16)
@@ -32,14 +35,21 @@ struct CardsView: View {
             }
         }
         .task {
-            await viewModel.fetchCards()
+            if viewModel.cards.isEmpty {
+                await viewModel.fetchCards()
+            }
         }
-        .alert("", isPresented: $viewModel.shouldPresentError) {} message: {
-            Text(viewModel.errorMessage)
-        }
-        .navigationTitle(viewModel.navigationTitle)
-        .navigationBarTitleDisplayMode(.automatic)
+        .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text(viewModel.navigationTitle).font(.headline)
+                    if !viewModel.cards.isEmpty {
+                        Text("\(viewModel.cards.count) to collect").font(.subheadline)
+                    }
+                }
+            }
             ToolbarItem {
                 Button(action: {
                     print("filter")
@@ -48,6 +58,13 @@ struct CardsView: View {
                         .resizable()
                         .scaledToFit()
                 }
+            }
+        }
+        .sheet(isPresented: $viewModel.cardDetailIsPresented) {
+            if let selectedCard = viewModel.selectedCard {
+                CardDetailView(viewModel: CardDetailViewModel(card: selectedCard))
+                    .presentationDetents([.fraction(0.75)])
+                    .presentationDragIndicator(.visible)
             }
         }
     }

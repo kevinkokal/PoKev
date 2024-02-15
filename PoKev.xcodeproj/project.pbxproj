@@ -27,7 +27,7 @@
 		AC5D8E4C2B669AFB008A025A /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E4B2B669AFB008A025A /* CardsViewModel.swift */; };
 		AC5D8E4F2B669B88008A025A /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E4E2B669B88008A025A /* CardViewModel.swift */; };
 		AC5D8E512B669B91008A025A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E502B669B91008A025A /* CardView.swift */; };
-		AC5D8E542B66EA20008A025A /* Color+FromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E532B66EA20008A025A /* Color+FromHex.swift */; };
+		AC5D8E542B66EA20008A025A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D8E532B66EA20008A025A /* Extensions.swift */; };
 		AC7C7E1E2B60255A00454F5D /* PoKevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */; };
 		AC7C7E202B60255A00454F5D /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E1F2B60255A00454F5D /* SetsView.swift */; };
 		AC7C7E222B60255B00454F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7C7E212B60255B00454F5D /* Assets.xcassets */; };
@@ -35,6 +35,9 @@
 		AC7C7E302B60255C00454F5D /* PoKevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */; };
 		AC7C7E3A2B60255C00454F5D /* PoKevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E392B60255C00454F5D /* PoKevUITests.swift */; };
 		AC7C7E3C2B60255C00454F5D /* PoKevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */; };
+		ACF3CA692B7D34CD00CB0DDB /* LookingGlassUI in Frameworks */ = {isa = PBXBuildFile; productRef = ACF3CA682B7D34CD00CB0DDB /* LookingGlassUI */; };
+		ACF3CA6C2B7D39C500CB0DDB /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3CA6B2B7D39C500CB0DDB /* CardDetailView.swift */; };
+		ACF3CA6E2B7D39F800CB0DDB /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3CA6D2B7D39F800CB0DDB /* CardDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +78,7 @@
 		AC5D8E4B2B669AFB008A025A /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		AC5D8E4E2B669B88008A025A /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		AC5D8E502B669B91008A025A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		AC5D8E532B66EA20008A025A /* Color+FromHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+FromHex.swift"; sourceTree = "<group>"; };
+		AC5D8E532B66EA20008A025A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AC7C7E1A2B60255A00454F5D /* PoKev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoKev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7C7E1D2B60255A00454F5D /* PoKevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevApp.swift; sourceTree = "<group>"; };
 		AC7C7E1F2B60255A00454F5D /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 		AC7C7E352B60255C00454F5D /* PoKevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoKevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7C7E392B60255C00454F5D /* PoKevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITests.swift; sourceTree = "<group>"; };
 		AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ACF3CA6B2B7D39C500CB0DDB /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		ACF3CA6D2B7D39F800CB0DDB /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF3CA692B7D34CD00CB0DDB /* LookingGlassUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +175,7 @@
 		AC5D8E412B62FDEF008A025A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ACF3CA6A2B7D39AC00CB0DDB /* Card Detail */,
 				AC5D8E4D2B669B77008A025A /* Card */,
 				AC5D8E482B669AE2008A025A /* Cards */,
 				AC5D8E432B62FE0D008A025A /* Set */,
@@ -216,7 +223,7 @@
 		AC5D8E522B66E9E5008A025A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				AC5D8E532B66EA20008A025A /* Color+FromHex.swift */,
+				AC5D8E532B66EA20008A025A /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -280,6 +287,15 @@
 			path = PoKevUITests;
 			sourceTree = "<group>";
 		};
+		ACF3CA6A2B7D39AC00CB0DDB /* Card Detail */ = {
+			isa = PBXGroup;
+			children = (
+				ACF3CA6B2B7D39C500CB0DDB /* CardDetailView.swift */,
+				ACF3CA6D2B7D39F800CB0DDB /* CardDetailViewModel.swift */,
+			);
+			path = "Card Detail";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -296,6 +312,9 @@
 			dependencies = (
 			);
 			name = PoKev;
+			packageProductDependencies = (
+				ACF3CA682B7D34CD00CB0DDB /* LookingGlassUI */,
+			);
 			productName = PoKev;
 			productReference = AC7C7E1A2B60255A00454F5D /* PoKev.app */;
 			productType = "com.apple.product-type.application";
@@ -368,6 +387,9 @@
 				Base,
 			);
 			mainGroup = AC7C7E112B60255900454F5D;
+			packageReferences = (
+				ACF3CA672B7D34CD00CB0DDB /* XCRemoteSwiftPackageReference "LookingGlassUI" */,
+			);
 			productRefGroup = AC7C7E1B2B60255A00454F5D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -411,13 +433,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5D8E3C2B62AD3A008A025A /* PokemonTCGCard.swift in Sources */,
-				AC5D8E542B66EA20008A025A /* Color+FromHex.swift in Sources */,
+				AC5D8E542B66EA20008A025A /* Extensions.swift in Sources */,
 				AC1D37612B605111009161C3 /* PokemonTCGSet.swift in Sources */,
 				AC1D37542B604F74009161C3 /* PokemonTCGService.swift in Sources */,
 				AC5D8E452B62FE1F008A025A /* SetView.swift in Sources */,
 				AC5D8E402B62ADD8008A025A /* PokemonTCGPlayerData.swift in Sources */,
 				AC7C7E202B60255A00454F5D /* SetsView.swift in Sources */,
 				AC1D37592B604F74009161C3 /* RequestError.swift in Sources */,
+				ACF3CA6E2B7D39F800CB0DDB /* CardDetailViewModel.swift in Sources */,
 				AC1D37532B604F74009161C3 /* PokemonTCGSetsEndpoint.swift in Sources */,
 				AC7C7E1E2B60255A00454F5D /* PoKevApp.swift in Sources */,
 				AC5D8E4A2B669AF1008A025A /* CardsView.swift in Sources */,
@@ -425,6 +448,7 @@
 				AC5D8E3A2B62AD30008A025A /* PokemonTCGCardsEndpoint.swift in Sources */,
 				AC5D8E4C2B669AFB008A025A /* CardsViewModel.swift in Sources */,
 				AC1D37652B60572A009161C3 /* SetsViewModel.swift in Sources */,
+				ACF3CA6C2B7D39C500CB0DDB /* CardDetailView.swift in Sources */,
 				AC5D8E3E2B62AD4C008A025A /* PokemonTCGCardsResponse.swift in Sources */,
 				AC1D37572B604F74009161C3 /* RequestMethod.swift in Sources */,
 				AC1D37582B604F74009161C3 /* HTTPClient.swift in Sources */,
@@ -787,6 +811,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACF3CA672B7D34CD00CB0DDB /* XCRemoteSwiftPackageReference "LookingGlassUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ryanlintott/LookingGlassUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACF3CA682B7D34CD00CB0DDB /* LookingGlassUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACF3CA672B7D34CD00CB0DDB /* XCRemoteSwiftPackageReference "LookingGlassUI" */;
+			productName = LookingGlassUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC7C7E122B60255900454F5D /* Project object */;
 }

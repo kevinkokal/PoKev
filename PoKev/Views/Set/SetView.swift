@@ -28,8 +28,14 @@ struct SetView: View {
             Spacer()
             VStack(alignment: .trailing) {
                 Text(viewModel.setTitle)
+                    .lineLimit(2)
+                    .font(.title2)
+                    .fontDesign(.rounded)
+                    .multilineTextAlignment(.trailing)
+                Spacer()
+                Text(viewModel.seriesTitle)
                     .lineLimit(1)
-                    .font(.headline)
+                    .font(.subheadline)
                     .fontDesign(.rounded)
                 Spacer()
                 AsyncImage(url: viewModel.symbolURL) { image in
@@ -42,29 +48,13 @@ struct SetView: View {
                 }
                 .frame(width: 48, height: 48)
                 Spacer()
-                Button(action: {
-                    viewModel.showSetInfo = true
-                }) {
-                    Image(systemName: "info.circle")
-                        .resizable()
-                        .scaledToFit()
-                }
-                .frame(width: 24, height: 24)
+                Text(viewModel.cardCountMessage)
+                    .lineLimit(1)
+                    .font(.headline)
+                    .fontDesign(.rounded)
             }
             .padding(.all, 16)
         }
-        .sheet(isPresented: $viewModel.showSetInfo, content: {
-            VStack(alignment: .trailing, content: {
-                Text(viewModel.seriesTitle)
-                    .lineLimit(1)
-                Text(viewModel.formattedReleaseDate)
-                    .lineLimit(1)
-                Text(viewModel.cardCountMessage)
-                    .lineLimit(1)
-            })
-            .presentationDetents([.fraction(0.3)])
-            .presentationCornerRadius(24)
-        })
         .background(RoundedRectangle(cornerRadius: 24)
             .fill(Color.white)
             .shadow(color: .gray, radius: 3, x: 0, y: 3))

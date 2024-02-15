@@ -15,6 +15,8 @@ final class CardsViewModel {
     private(set) var error: RequestError?
     var shouldPresentError = false
     var isFetchingCards = false
+    var cardDetailIsPresented = false
+    var selectedCard: PokemonTCGCard?
     
     var errorMessage: String {
         if let error = self.error {
@@ -25,7 +27,11 @@ final class CardsViewModel {
     }
     
     var navigationTitle: String {
-        return "\(set.name) Set Cards"
+        return "\(set.name) Set"
+    }
+    
+    var navigationSubTitle: String {
+        return "\(cards.count) cards to collect"
     }
     
     init(set: PokemonTCGSet) {

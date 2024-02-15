@@ -11,13 +11,12 @@ import Observation
 @Observable
 final class SetViewModel {
     @ObservationIgnored let set: PokemonTCGSet
-    var showSetInfo = false
     
     var cardCountMessage: String {
         let secretCount = set.total - set.printedTotal
         var countMessage = "\(set.total) Cards"
         if secretCount > 0 {
-            countMessage += " (\(secretCount) secret rares)"
+            countMessage += " (\(secretCount) secret)"
         }
         return countMessage
     }
@@ -27,7 +26,7 @@ final class SetViewModel {
     }
     
     var seriesTitle: String {
-        return set.series
+        return set.series + " Series"
     }
     
     var formattedReleaseDate: String {
