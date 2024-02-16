@@ -47,10 +47,11 @@ struct CardView: View {
                         .font(.title2)
                 }
                 Spacer()
-                Button(action: {
-                    print("info")
-                }) {
-                    Image(systemName: "info.circle")
+                NavigationLink {
+                    //TODO: what if it has multiple pokemon we care about in one card
+                    CardsView(pokedexNumber: viewModel.card.nationalPokedexNumbers.first!)
+                } label: {
+                    Image(systemName: "menucard")
                         .font(.title2)
                 }
                 Spacer()

@@ -17,6 +17,10 @@ struct CardsView: View {
         viewModel = CardsViewModel(set: set)
     }
     
+    init(pokedexNumber: Int) {
+        viewModel = CardsViewModel(pokedexNumber: pokedexNumber)
+    }
+    
     var body: some View {
         Group {
             if viewModel.isFetchingCards {
@@ -25,7 +29,7 @@ struct CardsView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
                         ForEach(viewModel.refinedCards) { card in
-                            CardView(card: card, set: viewModel.set).onTapGesture {
+                            CardView(card: card, set: card.set).onTapGesture {
                                 viewModel.cardDetailIsPresented = true
                                 viewModel.selectedCard = card
                             }
@@ -65,7 +69,7 @@ struct CardsView: View {
                 }
                 .disabled(viewModel.isFetchingCards)
                 .sheet(isPresented: $viewModel.refinementMenuIsPresented) {
-                    RefinementForm(refinementModel: $viewModel.refinement)
+                    RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
                 }
             }
         }
@@ -88,34 +92,41 @@ struct CardsView: View {
 
 struct RefinementForm: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var refinement: CardsRefinement
+    @Binding var refinementModel: CardsRefinement
+    let configuration: CardsViewModel.Configuration
     
-    init(refinementModel: Binding<CardsRefinement>) {
-        _refinement = refinementModel
+    init(refinementModel: Binding<CardsRefinement>, configuration: CardsViewModel.Configuration) {
+        self._refinementModel = refinementModel
+        self.configuration = configuration
     }
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Sort")) {
-                    Picker("Sort Order", selection: $refinement.sortOrder) {
+                    Picker("Sort Order", selection: $refinementModel.currentSortOrder) {
                         Text("Alphabetical").tag(CardsRefinement.SortOrder.alphabetical)
-                        Text("Number in Set").tag(CardsRefinement.SortOrder.setNumber)
-                        Text("Number in Pokedex").tag(CardsRefinement.SortOrder.pokedexNumber)
+                        switch configuration {
+                        case .set:
+                            Text("Number in Set").tag(CardsRefinement.SortOrder.setNumber)
+                            Text("Number in Pokedex").tag(CardsRefinement.SortOrder.pokedexNumber)
+                        case .pokedexNumber:
+                            Text("Release Date").tag(CardsRefinement.SortOrder.releaseDate)
+                        }
                     }
                 }
                 Section(header: Text("Price Filters")) {
-                    Toggle("Only show potential deals", isOn: $refinement.filters.onlyPotentialDeals)
+                    Toggle("Only show potential deals", isOn: $refinementModel.filters.onlyPotentialDeals)
                 }
                 Section(header: Text("Rarity Filters")) {
-                    MultiPicker("Only show certain rarities", selection: $refinement.filters.rarities) {
-                        ForEach(Array(refinement.filters.allRaritiesInSet), id:\.self) { rarity in
+                    MultiPicker("Only show certain rarities", selection: $refinementModel.filters.rarities) {
+                        ForEach(Array(refinementModel.filters.allRaritiesInSet), id:\.self) { rarity in
                             Text(rarity).mpTag(rarity)
                         }
                     }
                 }
             }
-            .navigationBarItems(leading: Button("Reset", action: { refinement = CardsRefinement(allRaritiesInSet: refinement.filters.allRaritiesInSet) }), trailing: Button("Done", action: { dismiss() }))
+            .navigationBarItems(leading: Button("Reset", action: { refinementModel.reset() }), trailing: Button("Done", action: { dismiss() }))
             .navigationTitle("Refine")
             .navigationBarTitleDisplayMode(.inline)
         }

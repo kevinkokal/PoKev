@@ -10,7 +10,12 @@ import Observation
 
 @Observable
 final class CardsViewModel {
-    let set: PokemonTCGSet
+    enum Configuration {
+        case set(_ set: PokemonTCGSet)
+        case pokedexNumber(_ pokedexNumber: Int)
+    }
+    
+    let configuration: Configuration
     
     private(set) var allCards = [PokemonTCGCard]()
     private(set) var refinedCards = [PokemonTCGCard]()
@@ -23,9 +28,11 @@ final class CardsViewModel {
     var selectedCard: PokemonTCGCard?
     
     var refinementMenuIsPresented = false
-    var refinement = CardsRefinement() {
+    var refinement: CardsRefinement { //TODO: should this just be optional so that we don't init it when there are no cards?
         didSet {
-            refineCards()
+            if !allCards.isEmpty {
+                refineCards()
+            }
         }
     }
     
@@ -38,7 +45,12 @@ final class CardsViewModel {
     }
     
     var navigationTitle: String {
-        return "\(set.name) Set"
+        switch configuration {
+        case .set(let set):
+            return "\(set.name) Set"
+        case .pokedexNumber(let pokedexNumber):
+            return "Pokedex: \(pokedexNumber)"
+        }
     }
     
     var navigationSubTitle: String {
@@ -46,15 +58,34 @@ final class CardsViewModel {
     }
     
     init(set: PokemonTCGSet) {
-        self.set = set
+        configuration = .set(set)
+        refinement = CardsRefinement(initialSortOrder: .setNumber)
+    }
+    
+    init(pokedexNumber: Int) {
+        configuration = .pokedexNumber(pokedexNumber)
+        refinement = CardsRefinement(initialSortOrder: .releaseDate)
     }
     
     func fetchCards() async {
         isFetchingCards = true
         do {
-            allCards = try await PokemonTCGService().getCards(forSet: set.id)
+            switch configuration {
+            case .set(let set):
+                allCards = try await PokemonTCGService().getCards(forSet: set.id)
+            case .pokedexNumber(let pokedexNumber):
+                allCards = try await PokemonTCGService().getCards(forPokedexNumber: pokedexNumber)
+            }
             isFetchingCards = false
-            refinement = CardsRefinement(allRaritiesInSet: allCards.allRarities)
+            
+            let initialSortOrder: CardsRefinement.SortOrder
+            switch configuration {
+            case .set:
+                initialSortOrder = .setNumber
+            case .pokedexNumber:
+                initialSortOrder = .releaseDate
+            }
+            refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -80,7 +111,7 @@ final class CardsViewModel {
         }
         
         let sortedFilteredCards = filteredCards.sorted { card1, card2 in
-            switch refinement.sortOrder {
+            switch refinement.currentSortOrder {
             case .alphabetical:
                 return card1.name < card2.name
             case .setNumber:
@@ -96,6 +127,19 @@ final class CardsViewModel {
                 } else {
                     return card2.nationalPokedexNumbers.first == nil
                 }
+            case .releaseDate:
+                let apiDateFormatter = DateFormatter()
+                apiDateFormatter.dateFormat = "yyyy/MM/dd"
+                
+                if let card1ReleaseDate = apiDateFormatter.date(from: card1.set.releaseDate) {
+                    if let card2ReleaseDate = apiDateFormatter.date(from: card2.set.releaseDate) {
+                        return card1ReleaseDate < card2ReleaseDate
+                    } else {
+                        return true
+                    }
+                } else {
+                    return apiDateFormatter.date(from: card2.set.releaseDate) == nil
+                }
             }
         }
         
@@ -108,6 +152,7 @@ struct CardsRefinement {
         case alphabetical
         case setNumber
         case pokedexNumber
+        case releaseDate
     }
     
     struct Filters {
@@ -130,16 +175,23 @@ struct CardsRefinement {
         }
     }
     
-    var sortOrder: SortOrder
+    let initialSortOrder: SortOrder
+    var currentSortOrder: SortOrder
     var filters: Filters
     
     var isDefault: Bool {
-        return sortOrder == .setNumber && filters.isDefault
+        return currentSortOrder == initialSortOrder && filters.isDefault
     }
     
-    init(sortOrder: SortOrder = .setNumber, filters: Filters? = nil, allRaritiesInSet: Set<String> = Set<String>()) {
-        self.sortOrder = sortOrder
+    init(initialSortOrder: SortOrder, filters: Filters? = nil, allRaritiesInSet: Set<String> = Set<String>()) {
+        self.initialSortOrder = initialSortOrder
+        self.currentSortOrder = initialSortOrder
         self.filters = filters ?? Filters(allRaritiesInSet: allRaritiesInSet)
+    }
+    
+    mutating func reset() {
+        currentSortOrder = initialSortOrder
+        filters = Filters(allRaritiesInSet: filters.allRaritiesInSet)
     }
 }
 
