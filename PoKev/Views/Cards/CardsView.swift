@@ -5,6 +5,7 @@
 //  Created by Kevin Kokal on 1/28/24.
 //
 
+import MultiPicker
 import SwiftUI
 
 struct CardsView: View {
@@ -23,7 +24,7 @@ struct CardsView: View {
             } else {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
-                        ForEach(viewModel.cards) { card in
+                        ForEach(viewModel.refinedCards) { card in
                             CardView(card: card, set: viewModel.set).onTapGesture {
                                 viewModel.cardDetailIsPresented = true
                                 viewModel.selectedCard = card
@@ -35,7 +36,7 @@ struct CardsView: View {
             }
         }
         .task {
-            if viewModel.cards.isEmpty {
+            if viewModel.allCards.isEmpty {
                 await viewModel.fetchCards()
             }
         }
@@ -45,8 +46,8 @@ struct CardsView: View {
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text(viewModel.navigationTitle).font(.headline)
-                    if !viewModel.cards.isEmpty {
-                        Text("\(viewModel.cards.count) to collect").font(.subheadline)
+                    if !viewModel.refinedCards.isEmpty {
+                        Text(viewModel.navigationSubTitle).font(.subheadline)
                     }
                 }
             }
@@ -62,6 +63,10 @@ struct CardsView: View {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill")
                     }
                 }
+                .disabled(viewModel.isFetchingCards)
+                .sheet(isPresented: $viewModel.refinementMenuIsPresented) {
+                    RefinementForm(refinementModel: $viewModel.refinement)
+                }
             }
         }
         .sheet(isPresented: $viewModel.cardDetailIsPresented) {
@@ -71,20 +76,51 @@ struct CardsView: View {
                     .presentationDragIndicator(.visible)
             }
         }
-        .sheet(isPresented: $viewModel.refinementMenuIsPresented) {
+    }
+    
+    enum ActiveSheet {
+       case first, second
+       var id: Int {
+          hashValue
+       }
+    }
+}
+
+struct RefinementForm: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var refinement: CardsRefinement
+    
+    init(refinementModel: Binding<CardsRefinement>) {
+        _refinement = refinementModel
+    }
+    
+    var body: some View {
+        NavigationView {
             Form {
                 Section(header: Text("Sort")) {
-                    Picker("Sort Order", selection: $viewModel.refinement.sortOrder) {
+                    Picker("Sort Order", selection: $refinement.sortOrder) {
                         Text("Alphabetical").tag(CardsRefinement.SortOrder.alphabetical)
                         Text("Number in Set").tag(CardsRefinement.SortOrder.setNumber)
                         Text("Number in Pokedex").tag(CardsRefinement.SortOrder.pokedexNumber)
                     }
                 }
-                Section(header: Text("Filters")) {
-                    Toggle("Only show potential deals", isOn: $viewModel.refinement.filters.onlyPotentialDeals)
+                Section(header: Text("Price Filters")) {
+                    Toggle("Only show potential deals", isOn: $refinement.filters.onlyPotentialDeals)
+                }
+                Section(header: Text("Rarity Filters")) {
+                    MultiPicker("Only show certain rarities", selection: $refinement.filters.rarities) {
+                        ForEach(Array(refinement.filters.allRaritiesInSet), id:\.self) { rarity in
+                            Text(rarity).mpTag(rarity)
+                        }
+                    }
                 }
             }
+            .navigationBarItems(leading: Button("Reset", action: { refinement = CardsRefinement(allRaritiesInSet: refinement.filters.allRaritiesInSet) }), trailing: Button("Done", action: { dismiss() }))
+            .navigationTitle("Refine")
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .presentationDetents([.fraction(0.66), .large])
+        .presentationDragIndicator(.visible)
     }
 }
 

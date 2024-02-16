@@ -38,6 +38,7 @@
 		ACF3CA692B7D34CD00CB0DDB /* LookingGlassUI in Frameworks */ = {isa = PBXBuildFile; productRef = ACF3CA682B7D34CD00CB0DDB /* LookingGlassUI */; };
 		ACF3CA6C2B7D39C500CB0DDB /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3CA6B2B7D39C500CB0DDB /* CardDetailView.swift */; };
 		ACF3CA6E2B7D39F800CB0DDB /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3CA6D2B7D39F800CB0DDB /* CardDetailViewModel.swift */; };
+		ACF3CA712B7EAE3400CB0DDB /* MultiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = ACF3CA702B7EAE3400CB0DDB /* MultiPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF3CA712B7EAE3400CB0DDB /* MultiPicker in Frameworks */,
 				ACF3CA692B7D34CD00CB0DDB /* LookingGlassUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +316,7 @@
 			name = PoKev;
 			packageProductDependencies = (
 				ACF3CA682B7D34CD00CB0DDB /* LookingGlassUI */,
+				ACF3CA702B7EAE3400CB0DDB /* MultiPicker */,
 			);
 			productName = PoKev;
 			productReference = AC7C7E1A2B60255A00454F5D /* PoKev.app */;
@@ -389,6 +392,7 @@
 			mainGroup = AC7C7E112B60255900454F5D;
 			packageReferences = (
 				ACF3CA672B7D34CD00CB0DDB /* XCRemoteSwiftPackageReference "LookingGlassUI" */,
+				ACF3CA6F2B7EAE3400CB0DDB /* XCRemoteSwiftPackageReference "MultiPicker" */,
 			);
 			productRefGroup = AC7C7E1B2B60255A00454F5D /* Products */;
 			projectDirPath = "";
@@ -821,6 +825,14 @@
 				minimumVersion = 0.3.1;
 			};
 		};
+		ACF3CA6F2B7EAE3400CB0DDB /* XCRemoteSwiftPackageReference "MultiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/toastersocks/MultiPicker";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -828,6 +840,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = ACF3CA672B7D34CD00CB0DDB /* XCRemoteSwiftPackageReference "LookingGlassUI" */;
 			productName = LookingGlassUI;
+		};
+		ACF3CA702B7EAE3400CB0DDB /* MultiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACF3CA6F2B7EAE3400CB0DDB /* XCRemoteSwiftPackageReference "MultiPicker" */;
+			productName = MultiPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

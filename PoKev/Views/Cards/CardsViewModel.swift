@@ -12,7 +12,8 @@ import Observation
 final class CardsViewModel {
     let set: PokemonTCGSet
     
-    private(set) var cards = [PokemonTCGCard]()
+    private(set) var allCards = [PokemonTCGCard]()
+    private(set) var refinedCards = [PokemonTCGCard]()
     var isFetchingCards = false
     
     private(set) var error: RequestError?
@@ -41,7 +42,7 @@ final class CardsViewModel {
     }
     
     var navigationSubTitle: String {
-        return "\(cards.count) cards to collect"
+        return "\(refinedCards.count) \(allCards.count != refinedCards.count ? "filtered " : "")cards to collect"
     }
     
     init(set: PokemonTCGSet) {
@@ -51,8 +52,9 @@ final class CardsViewModel {
     func fetchCards() async {
         isFetchingCards = true
         do {
-            cards = try await PokemonTCGService().getCards(forSet: set.id)
+            allCards = try await PokemonTCGService().getCards(forSet: set.id)
             isFetchingCards = false
+            refinement = CardsRefinement(allRaritiesInSet: allCards.allRarities)
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -61,9 +63,17 @@ final class CardsViewModel {
     }
     
     private func refineCards() {
-        let filteredCards = cards.filter { card in
+        let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
-                return card.isPotentialDeal
+                if !card.isPotentialDeal {
+                    return false
+                }
+            }
+            
+            if refinement.filters.rarities != refinement.filters.allRaritiesInSet {
+                if !refinement.filters.rarities.contains(card.rarity) {
+                    return false
+                }
             }
             
             return true
@@ -89,7 +99,7 @@ final class CardsViewModel {
             }
         }
         
-        cards = sortedFilteredCards
+        refinedCards = sortedFilteredCards
     }
 }
 
@@ -101,18 +111,41 @@ struct CardsRefinement {
     }
     
     struct Filters {
-        var onlyPotentialDeals = false
+        var onlyPotentialDeals: Bool
+        var rarities: Set<String>
+        var allRaritiesInSet: Set<String>
+        
+        var onlyShowCertainRarities: Bool {
+            return rarities != allRaritiesInSet
+        }
         
         var isDefault: Bool {
-            return !onlyPotentialDeals
+            return !onlyPotentialDeals && rarities == allRaritiesInSet
+        }
+        
+        init(onlyPotentialDeals: Bool = false, rarities: Set<String>? = nil, allRaritiesInSet: Set<String>) {
+            self.onlyPotentialDeals = onlyPotentialDeals
+            self.rarities = rarities ?? allRaritiesInSet
+            self.allRaritiesInSet = allRaritiesInSet
         }
     }
     
-    var sortOrder: SortOrder = .setNumber
-    var filters = Filters()
+    var sortOrder: SortOrder
+    var filters: Filters
     
     var isDefault: Bool {
         return sortOrder == .setNumber && filters.isDefault
+    }
+    
+    init(sortOrder: SortOrder = .setNumber, filters: Filters? = nil, allRaritiesInSet: Set<String> = Set<String>()) {
+        self.sortOrder = sortOrder
+        self.filters = filters ?? Filters(allRaritiesInSet: allRaritiesInSet)
+    }
+}
+
+extension [PokemonTCGCard] {
+    var allRarities: Set<String> {
+        Set(map { $0.rarity })
     }
 }
 
