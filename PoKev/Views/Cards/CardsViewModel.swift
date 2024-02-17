@@ -115,7 +115,7 @@ final class CardsViewModel {
             case .alphabetical:
                 return card1.name < card2.name
             case .setNumber:
-                return card1.number < card2.number
+                return card1.number.localizedStandardCompare(card2.number) == .orderedAscending
             case .pokedexNumber:
                 // In almost all cases, there will only be one pokedex number. When there are multiple, just grab the first.
                 if let card1FirstPokedexNumber = card1.nationalPokedexNumbers.first {
