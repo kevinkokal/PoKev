@@ -23,6 +23,7 @@ final class SetsViewModel {
         }
     }
 
+    @MainActor
     func fetchSets() async {
         isFetchingSets = true
         do {

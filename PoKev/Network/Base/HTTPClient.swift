@@ -44,7 +44,6 @@ extension HTTPClient {
                 do {
                     return try JSONDecoder().decode(responseModel, from: data)
                 } catch let error {
-                    print(error)
                     throw RequestError.decode
                 }
             case 401:

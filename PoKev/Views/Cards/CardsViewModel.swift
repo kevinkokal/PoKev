@@ -68,7 +68,7 @@ final class CardsViewModel {
         shouldShowPokedexButton = false
     }
     
-    func fetchCards() async {
+    @MainActor func fetchCards() async {
         isFetchingCards = true
         do {
             let service = PokemonTCGService()
@@ -87,16 +87,15 @@ final class CardsViewModel {
                 initialSortOrder = .releaseDate
             }
             refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
-            refineCards(using: refinement)
-            isFetchingCards = false
+            refineCards()
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
-            isFetchingCards = false
         }
+        isFetchingCards = false
     }
     
-    private func refineCards(using refinement: CardsRefinement) {
+    private func refineCards() {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {
@@ -145,7 +144,7 @@ final class CardsViewModel {
                 }
             }
         }
-        
+                
         refinedCards = sortedFilteredCards
     }
 }
