@@ -12,6 +12,7 @@ import SwiftUI
 final class CardViewModel {
     let card: PokemonTCGCard
     let set: PokemonTCGSet
+    var shouldShowPokedexButton = true
 
     var imageURL: URL? {
         if let urlString = card.images.small {
@@ -39,11 +40,12 @@ final class CardViewModel {
         let defaultColor = Color.white
         let highlightColor = Color(hex: 0xFDFD96)
         
-        return card.isPotentialDeal ? highlightColor : Color.white
+        return card.isPotentialDeal ? highlightColor : defaultColor
     }
     
-    init(card: PokemonTCGCard, set: PokemonTCGSet) {
+    init(card: PokemonTCGCard, set: PokemonTCGSet, shouldShowPokedexButton: Bool) {
         self.card = card
         self.set = set
+        self.shouldShowPokedexButton = shouldShowPokedexButton
     }
 }

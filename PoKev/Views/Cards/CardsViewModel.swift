@@ -20,6 +20,7 @@ final class CardsViewModel {
     private(set) var allCards = [PokemonTCGCard]()
     private(set) var refinedCards = [PokemonTCGCard]()
     var isFetchingCards = false
+    let shouldShowPokedexButton: Bool
     
     private(set) var error: RequestError?
     var shouldPresentError = false
@@ -28,13 +29,7 @@ final class CardsViewModel {
     var selectedCard: PokemonTCGCard?
     
     var refinementMenuIsPresented = false
-    var refinement: CardsRefinement { //TODO: should this just be optional so that we don't init it when there are no cards?
-        didSet {
-            if !allCards.isEmpty {
-                refineCards()
-            }
-        }
-    }
+    var refinement: CardsRefinement
     
     var errorMessage: String {
         if let error = self.error {
@@ -60,23 +55,25 @@ final class CardsViewModel {
     init(set: PokemonTCGSet) {
         configuration = .set(set)
         refinement = CardsRefinement(initialSortOrder: .setNumber)
+        shouldShowPokedexButton = true
     }
     
     init(pokedexNumber: Int) {
         configuration = .pokedexNumber(pokedexNumber)
         refinement = CardsRefinement(initialSortOrder: .releaseDate)
+        shouldShowPokedexButton = false
     }
     
     func fetchCards() async {
         isFetchingCards = true
         do {
+            let service = PokemonTCGService()
             switch configuration {
             case .set(let set):
-                allCards = try await PokemonTCGService().getCards(forSet: set.id)
+                allCards = try await service.getCards(forSet: set.id)
             case .pokedexNumber(let pokedexNumber):
-                allCards = try await PokemonTCGService().getCards(forPokedexNumber: pokedexNumber)
+                allCards = try await service.getCards(forPokedexNumber: pokedexNumber)
             }
-            isFetchingCards = false
             
             let initialSortOrder: CardsRefinement.SortOrder
             switch configuration {
@@ -86,6 +83,8 @@ final class CardsViewModel {
                 initialSortOrder = .releaseDate
             }
             refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
+            refineCards(using: refinement)
+            isFetchingCards = false
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -93,7 +92,7 @@ final class CardsViewModel {
         }
     }
     
-    private func refineCards() {
+    private func refineCards(using refinement: CardsRefinement) {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {
