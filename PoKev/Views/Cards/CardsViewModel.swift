@@ -42,7 +42,11 @@ final class CardsViewModel {
     var navigationTitle: String {
         switch configuration {
         case .set(let set):
-            return "\(set.name) Set"
+            if set.name.hasSuffix("Set") {
+                return set.name
+            } else {
+                return "\(set.name) Set"
+            }
         case .pokedexNumber(let pokedexNumber):
             return "Pokedex: \(pokedexNumber)"
         }
