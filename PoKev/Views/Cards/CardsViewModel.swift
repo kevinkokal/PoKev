@@ -29,7 +29,13 @@ final class CardsViewModel {
     var selectedCard: PokemonTCGCard?
     
     var refinementMenuIsPresented = false
-    var refinement: CardsRefinement
+    var refinement: CardsRefinement {
+        didSet {
+            if oldValue != refinement && !allCards.isEmpty {
+                refineCards()
+            }
+        }
+    }
     
     var errorMessage: String {
         if let error = self.error {
@@ -87,7 +93,6 @@ final class CardsViewModel {
                 initialSortOrder = .releaseDate
             }
             refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
-            refineCards()
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -149,7 +154,7 @@ final class CardsViewModel {
     }
 }
 
-struct CardsRefinement {
+struct CardsRefinement: Equatable {
     enum SortOrder {
         case alphabetical
         case setNumber
@@ -157,7 +162,7 @@ struct CardsRefinement {
         case releaseDate
     }
     
-    struct Filters {
+    struct Filters: Equatable {
         var onlyPotentialDeals: Bool
         var rarities: Set<String>
         var allRaritiesInSet: Set<String>
@@ -189,6 +194,10 @@ struct CardsRefinement {
         self.initialSortOrder = initialSortOrder
         self.currentSortOrder = initialSortOrder
         self.filters = filters ?? Filters(allRaritiesInSet: allRaritiesInSet)
+    }
+    
+    static func == (lhs: CardsRefinement, rhs: CardsRefinement) -> Bool {
+        return lhs.filters == rhs.filters && lhs.currentSortOrder == rhs.currentSortOrder && lhs.initialSortOrder == rhs.initialSortOrder
     }
     
     mutating func reset() {
