@@ -25,6 +25,8 @@ struct CardsView: View {
         Group {
             if viewModel.isFetchingCards {
                 PokeBallProgressView()
+            } else if viewModel.shouldShowNoResultsScreen {
+                NoResultsScreen(refinementMenuIsPresented: $viewModel.refinementMenuIsPresented)
             } else {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
@@ -68,7 +70,9 @@ struct CardsView: View {
                     }
                 }
                 .disabled(viewModel.isFetchingCards)
-                .sheet(isPresented: $viewModel.refinementMenuIsPresented) {
+                .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
+                    viewModel.refineCards()
+                 }) {
                     RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
                 }
             }
@@ -96,7 +100,7 @@ struct RefinementForm: View {
     let configuration: CardsViewModel.Configuration
     
     init(refinementModel: Binding<CardsRefinement>, configuration: CardsViewModel.Configuration) {
-        self._refinementModel = refinementModel
+        _refinementModel = refinementModel
         self.configuration = configuration
     }
     
@@ -130,8 +134,33 @@ struct RefinementForm: View {
             .navigationTitle("Refine")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .presentationDetents([.fraction(0.66), .large])
-        .presentationDragIndicator(.visible)
+    }
+}
+
+struct NoResultsScreen: View {
+    @Binding var refinementMenuIsPresented: Bool
+    
+    init(refinementMenuIsPresented: Binding<Bool>) {
+        _refinementMenuIsPresented = refinementMenuIsPresented
+    }
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Image(.confusedPsyduck)
+                .resizable()
+                .frame(width: 256, height: 256)
+                .padding(.bottom, 8)
+            Text("No Pokemon found...")
+                .font(.system(.headline, design: .rounded))
+            Button(action: {
+                refinementMenuIsPresented = true
+            }) {
+                Text("Try changing or resetting filters!")
+                    .font(.system(.subheadline, design: .rounded))
+            }
+            Spacer()
+        }
     }
 }
 

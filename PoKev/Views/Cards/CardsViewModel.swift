@@ -21,6 +21,7 @@ final class CardsViewModel {
     private(set) var refinedCards = [PokemonTCGCard]()
     var isFetchingCards = false
     let shouldShowPokedexButton: Bool
+    var shouldShowNoResultsScreen = false
     
     private(set) var error: RequestError?
     var shouldPresentError = false
@@ -29,13 +30,7 @@ final class CardsViewModel {
     var selectedCard: PokemonTCGCard?
     
     var refinementMenuIsPresented = false
-    var refinement: CardsRefinement {
-        didSet {
-            if oldValue != refinement && !allCards.isEmpty {
-                refineCards()
-            }
-        }
-    }
+    var refinement: CardsRefinement
     
     var errorMessage: String {
         if let error = self.error {
@@ -93,6 +88,7 @@ final class CardsViewModel {
                 initialSortOrder = .releaseDate
             }
             refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
+            refineCards()
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -100,7 +96,7 @@ final class CardsViewModel {
         isFetchingCards = false
     }
     
-    private func refineCards() {
+    func refineCards() {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {
@@ -151,6 +147,14 @@ final class CardsViewModel {
         }
                 
         refinedCards = sortedFilteredCards
+        
+        if !allCards.isEmpty && refinedCards.isEmpty {
+            shouldShowNoResultsScreen = true
+            refinementMenuIsPresented = false
+        } else {
+            shouldShowNoResultsScreen = false
+        }
+        
     }
 }
 
