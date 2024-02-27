@@ -110,7 +110,7 @@ final class CardsViewModel {
                 }
             }
             
-            return true
+            return card.nationalPokedexNumbers.allSatisfy({ $0 >= 1 && $0 <= 151 })
         }
         
         let sortedFilteredCards = filteredCards.sorted { card1, card2 in
@@ -148,13 +148,7 @@ final class CardsViewModel {
                 
         refinedCards = sortedFilteredCards
         
-        if !allCards.isEmpty && refinedCards.isEmpty {
-            shouldShowNoResultsScreen = true
-            refinementMenuIsPresented = false
-        } else {
-            shouldShowNoResultsScreen = false
-        }
-        
+        shouldShowNoResultsScreen = !allCards.isEmpty && refinedCards.isEmpty
     }
 }
 

@@ -11,7 +11,7 @@ import SwiftUI
 struct CardsView: View {
     @State var viewModel: CardsViewModel
     
-    private var gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
+    private let gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
     
     init(set: PokemonTCGSet) {
         viewModel = CardsViewModel(set: set)
@@ -58,23 +58,7 @@ struct CardsView: View {
                 }
             }
             ToolbarItem {
-                Button(action: {
-                    viewModel.refinementMenuIsPresented = true
-                }) {
-                    if viewModel.refinement.isDefault {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                    }
-                }
-                .disabled(viewModel.isFetchingCards)
-                .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
-                    viewModel.refineCards()
-                 }) {
-                    RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
-                }
+                RefinementButton(viewModel: $viewModel)
             }
         }
         .sheet(isPresented: $viewModel.cardDetailIsPresented) {
@@ -97,7 +81,7 @@ struct CardsView: View {
 struct RefinementForm: View {
     @Environment(\.dismiss) var dismiss
     @Binding var refinementModel: CardsRefinement
-    let configuration: CardsViewModel.Configuration
+    private let configuration: CardsViewModel.Configuration
     
     init(refinementModel: Binding<CardsRefinement>, configuration: CardsViewModel.Configuration) {
         _refinementModel = refinementModel
@@ -160,6 +144,34 @@ struct NoResultsScreen: View {
                     .font(.system(.subheadline, design: .rounded))
             }
             Spacer()
+        }
+    }
+}
+
+struct RefinementButton: View {
+    @Binding var viewModel: CardsViewModel
+    
+    init(viewModel: Binding<CardsViewModel>) {
+        _viewModel = viewModel
+    }
+    
+    var body: some View {
+        Button(action: {
+            viewModel.refinementMenuIsPresented = true
+        }) {
+            if viewModel.refinement.isDefault {
+                Image(systemName: "line.3.horizontal.decrease.circle")
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+            }
+        }
+        .disabled(viewModel.isFetchingCards)
+        .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
+            viewModel.refineCards()
+         }) {
+            RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
         }
     }
 }

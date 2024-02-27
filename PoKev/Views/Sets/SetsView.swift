@@ -19,7 +19,7 @@ struct SetsView: View {
                 } else {
                     ScrollView() {
                         LazyVStack(spacing: 0) {
-                            ForEach(viewModel.sets) { set in
+                            ForEach(viewModel.setsToDisplay) { set in
                                 NavigationLink {
                                     CardsView(set: set)
                                 } label: {
@@ -33,7 +33,7 @@ struct SetsView: View {
                 }
             }
             .task {
-                if viewModel.sets.isEmpty {
+                if viewModel.allSets.isEmpty {
                     await viewModel.fetchSets()
                 }
             }
@@ -41,6 +41,7 @@ struct SetsView: View {
             .navigationTitle("Pokemon TCG Sets")
             .navigationBarTitleDisplayMode(.automatic)
         }
+        .searchable(text: $viewModel.searchText)
     }
 }
 

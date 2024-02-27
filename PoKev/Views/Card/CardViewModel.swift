@@ -12,7 +12,8 @@ import SwiftUI
 final class CardViewModel {
     let card: PokemonTCGCard
     let set: PokemonTCGSet
-    var shouldShowPokedexButton = true
+    let shouldShowPokedexButton: Bool
+    var shouldShowPokedexNumberSelectionAlert = false
 
     var imageURL: URL? {
         if let urlString = card.images.small {

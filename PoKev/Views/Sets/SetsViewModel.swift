@@ -10,10 +10,20 @@ import Observation
 
 @Observable
 final class SetsViewModel {
-    private(set) var sets = [PokemonTCGSet]()
+    private(set) var allSets = [PokemonTCGSet]() {
+        didSet {
+            setsToDisplay = allSets
+        }
+    }
+    private(set) var setsToDisplay = [PokemonTCGSet]()
     private(set) var error: RequestError?
     var shouldPresentError = false
     var isFetchingSets = false
+    var searchText = "" {
+        didSet {
+            filterSets()
+        }
+    }
     
     var errorMessage: String {
         if let error = self.error {
@@ -27,12 +37,20 @@ final class SetsViewModel {
     func fetchSets() async {
         isFetchingSets = true
         do {
-            sets = try await PokemonTCGService().getSets()
+            allSets = try await PokemonTCGService().getSets()
             isFetchingSets = false
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
             isFetchingSets = false
+        }
+    }
+    
+    func filterSets() {
+        if searchText.isEmpty {
+            setsToDisplay = allSets
+        } else {
+            setsToDisplay = allSets.filter { $0.name.contains(searchText) }
         }
     }
 }

@@ -26,7 +26,7 @@ struct CardView: View {
                 ProgressView()
                     .controlSize(.large)
             }
-                .frame(width: 128, height: 128)
+            .frame(width: 128, height: 128)
             Text(viewModel.cardTitle)
                 .font(.system(.headline, design: .rounded))
                 .lineLimit(1)
@@ -47,21 +47,39 @@ struct CardView: View {
                 }
                 Spacer()
                 if viewModel.shouldShowPokedexButton {
-                    NavigationLink {
-                        //TODO: what if it has multiple pokemon we care about in one card
-                        CardsView(pokedexNumber: viewModel.card.nationalPokedexNumbers.first!)
-                    } label: {
-                        Image(systemName: "menucard")
-                            .font(.title2)
+                    if viewModel.card.nationalPokedexNumbers.count > 1 {
+                        Button {
+                            viewModel.shouldShowPokedexNumberSelectionAlert = true
+                        } label: {
+                            Image(systemName: "menucard")
+                                .font(.title2)
+                        }
+                    } else {
+                        NavigationLink {
+                            CardsView(pokedexNumber: viewModel.card.nationalPokedexNumbers.first!)
+                        } label: {
+                            Image(systemName: "menucard")
+                                .font(.title2)
+                        }
                     }
                     Spacer()
                 }
             }
         }
+        //TODO: This doesn't work
+        .alert("Select Pokedex Number", isPresented: $viewModel.shouldShowPokedexNumberSelectionAlert, actions: {
+            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
+                NavigationLink {
+                    CardsView(pokedexNumber: pokedexNumber)
+                } label: {
+                    Text("\(pokedexNumber)")
+                }
+            }
+        })
         .padding(.all, 16)
         .background(RoundedRectangle(cornerRadius: 24)
-        .fill(viewModel.backgroundColor)
-        .shadow(color: .gray, radius: 3, x: 0, y: 3))
+            .fill(viewModel.backgroundColor)
+            .shadow(color: .gray, radius: 3, x: 0, y: 3))
     }
 }
 
