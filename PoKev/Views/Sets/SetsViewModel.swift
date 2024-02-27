@@ -50,7 +50,7 @@ final class SetsViewModel {
         if searchText.isEmpty {
             setsToDisplay = allSets
         } else {
-            setsToDisplay = allSets.filter { $0.name.contains(searchText) }
+            setsToDisplay = allSets.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
 }

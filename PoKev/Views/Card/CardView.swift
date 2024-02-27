@@ -48,8 +48,15 @@ struct CardView: View {
                 Spacer()
                 if viewModel.shouldShowPokedexButton {
                     if viewModel.card.nationalPokedexNumbers.count > 1 {
-                        Button {
-                            viewModel.shouldShowPokedexNumberSelectionAlert = true
+                        Menu {
+                            Text("Select Pokedex Number")
+                            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
+                                NavigationLink {
+                                    CardsView(pokedexNumber: pokedexNumber)
+                                } label: {
+                                    Text("\(pokedexNumber)")
+                                }
+                            }
                         } label: {
                             Image(systemName: "menucard")
                                 .font(.title2)
@@ -66,16 +73,16 @@ struct CardView: View {
                 }
             }
         }
-        //TODO: This doesn't work
-        .alert("Select Pokedex Number", isPresented: $viewModel.shouldShowPokedexNumberSelectionAlert, actions: {
-            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
-                NavigationLink {
-                    CardsView(pokedexNumber: pokedexNumber)
-                } label: {
-                    Text("\(pokedexNumber)")
-                }
-            }
-        })
+//        //TODO: This doesn't work
+//        .alert("Select Pokedex Number", isPresented: $viewModel.shouldShowPokedexNumberSelectionAlert, actions: {
+//            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
+//                NavigationLink {
+//                    CardsView(pokedexNumber: pokedexNumber)
+//                } label: {
+//                    Text("\(pokedexNumber)")
+//                }
+//            }
+//        })
         .padding(.all, 16)
         .background(RoundedRectangle(cornerRadius: 24)
             .fill(viewModel.backgroundColor)

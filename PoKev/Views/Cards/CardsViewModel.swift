@@ -18,10 +18,15 @@ final class CardsViewModel {
     let configuration: Configuration
     
     private(set) var allCards = [PokemonTCGCard]()
-    private(set) var refinedCards = [PokemonTCGCard]()
-    var isFetchingCards = false
+    private var refinedCards = [PokemonTCGCard]() {
+        didSet {
+            cardsToDisplay = refinedCards
+        }
+    }
+    private(set) var cardsToDisplay = [PokemonTCGCard]()
+    private(set) var isFetchingCards = false
     let shouldShowPokedexButton: Bool
-    var shouldShowNoResultsScreen = false
+    private(set) var shouldShowNoResultsScreen = false
     
     private(set) var error: RequestError?
     var shouldPresentError = false
@@ -31,6 +36,12 @@ final class CardsViewModel {
     
     var refinementMenuIsPresented = false
     var refinement: CardsRefinement
+    
+    var searchText = "" {
+        didSet {
+            searchCards()
+        }
+    }
     
     var errorMessage: String {
         if let error = self.error {
@@ -149,6 +160,14 @@ final class CardsViewModel {
         refinedCards = sortedFilteredCards
         
         shouldShowNoResultsScreen = !allCards.isEmpty && refinedCards.isEmpty
+    }
+    
+    func searchCards() {
+        if searchText.isEmpty {
+            cardsToDisplay = refinedCards
+        } else {
+            cardsToDisplay = refinedCards.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        }
     }
 }
 

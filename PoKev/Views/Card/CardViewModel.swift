@@ -13,7 +13,6 @@ final class CardViewModel {
     let card: PokemonTCGCard
     let set: PokemonTCGSet
     let shouldShowPokedexButton: Bool
-    var shouldShowPokedexNumberSelectionAlert = false
 
     var imageURL: URL? {
         if let urlString = card.images.small {

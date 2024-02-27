@@ -30,7 +30,7 @@ struct CardsView: View {
             } else {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
-                        ForEach(viewModel.refinedCards) { card in
+                        ForEach(viewModel.cardsToDisplay) { card in
                             CardView(card: card, set: card.set, shouldShowPokedexButton: viewModel.shouldShowPokedexButton).onTapGesture {
                                 viewModel.cardDetailIsPresented = true
                                 viewModel.selectedCard = card
@@ -52,7 +52,7 @@ struct CardsView: View {
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text(viewModel.navigationTitle).font(.headline)
-                    if !viewModel.refinedCards.isEmpty {
+                    if !viewModel.cardsToDisplay.isEmpty {
                         Text(viewModel.navigationSubTitle).font(.subheadline)
                     }
                 }
@@ -68,6 +68,7 @@ struct CardsView: View {
                     .presentationDragIndicator(.visible)
             }
         }
+        .searchable(text: $viewModel.searchText)
     }
     
     enum ActiveSheet {
