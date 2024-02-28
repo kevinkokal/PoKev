@@ -38,11 +38,11 @@ struct CardView: View {
                 Spacer()
                 if let url = viewModel.tcgPlayerURL {
                     Link(destination: url) {
-                        Image(systemName: "cart")
+                        Image(systemName: "cart.fill")
                             .font(.title2)
                     }
                 } else {
-                    Image(systemName: "cart.badge.questionmark")
+                    Image(systemName: "cart.fill.badge.questionmark")
                         .font(.title2)
                 }
                 Spacer()
@@ -58,14 +58,14 @@ struct CardView: View {
                                 }
                             }
                         } label: {
-                            Image(systemName: "menucard")
+                            Image(systemName: "book.pages.fill")
                                 .font(.title2)
                         }
                     } else {
                         NavigationLink {
                             CardsView(pokedexNumber: viewModel.card.nationalPokedexNumbers.first!)
                         } label: {
-                            Image(systemName: "menucard")
+                            Image(systemName: "book.pages.fill")
                                 .font(.title2)
                         }
                     }
@@ -73,20 +73,16 @@ struct CardView: View {
                 }
             }
         }
-//        //TODO: This doesn't work
-//        .alert("Select Pokedex Number", isPresented: $viewModel.shouldShowPokedexNumberSelectionAlert, actions: {
-//            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
-//                NavigationLink {
-//                    CardsView(pokedexNumber: pokedexNumber)
-//                } label: {
-//                    Text("\(pokedexNumber)")
-//                }
-//            }
-//        })
         .padding(.all, 16)
         .background(RoundedRectangle(cornerRadius: 24)
-            .fill(viewModel.backgroundColor)
-            .shadow(color: .gray, radius: 3, x: 0, y: 3))
+            .fill(Color("DefaultCardBackground"))
+        .shadow(color: .gray, radius: 3, x: 0, y: 3))
+        .overlay {
+            if let highlightColor = viewModel.highlightColor {
+                RoundedRectangle(cornerRadius: 24)
+                    .stroke(highlightColor, lineWidth: 2)
+            }
+        }
     }
 }
 

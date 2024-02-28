@@ -36,11 +36,10 @@ final class CardViewModel {
        return "(\(card.number)/\(set.printedTotal))"
     }
     
-    var backgroundColor: Color {
-        let defaultColor = Color.white
-        let highlightColor = Color(hex: 0xFDFD96)
+    var highlightColor: Color? {
+        let highlightColor = Color("HighlightedCard")
         
-        return card.isPotentialDeal ? highlightColor : defaultColor
+        return card.isPotentialDeal ? highlightColor : nil
     }
     
     init(card: PokemonTCGCard, set: PokemonTCGSet, shouldShowPokedexButton: Bool) {

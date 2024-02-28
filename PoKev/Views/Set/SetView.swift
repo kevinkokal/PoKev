@@ -56,7 +56,7 @@ struct SetView: View {
             .padding(.all, 16)
         }
         .background(RoundedRectangle(cornerRadius: 24)
-            .fill(Color.white)
+            .fill(Color("DefaultCardBackground"))
             .shadow(color: .gray, radius: 3, x: 0, y: 3))
         .padding(.all, 8)
     }
