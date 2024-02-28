@@ -19,6 +19,8 @@ final class SetsViewModel {
     private(set) var error: RequestError?
     var shouldPresentError = false
     var isFetchingSets = false
+    var settingsMenuIsPresented = false
+    
     var searchText = "" {
         didSet {
             filterSets()
@@ -34,10 +36,10 @@ final class SetsViewModel {
     }
 
     @MainActor
-    func fetchSets() async {
+    func fetchSets(mode: Settings.Mode) async {
         isFetchingSets = true
         do {
-            allSets = try await PokemonTCGService().getSets()
+            allSets = try await PokemonTCGService().getSets(forMode: mode)
             isFetchingSets = false
         } catch let error {
             self.error = error as? RequestError

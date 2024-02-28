@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SetsView: View {
     @State var viewModel = SetsViewModel()
+    @State var settingsModel = Settings()
     
     var body: some View {
         NavigationStack {
@@ -34,14 +35,55 @@ struct SetsView: View {
             }
             .task {
                 if viewModel.allSets.isEmpty {
-                    await viewModel.fetchSets()
+                    await viewModel.fetchSets(mode: settingsModel.mode)
                 }
             }
             .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
             .navigationTitle("Pokemon TCG Sets")
             .navigationBarTitleDisplayMode(.automatic)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        viewModel.settingsMenuIsPresented = true
+                    }, label: {
+                        Image(systemName: "gearshape.fill")
+                    })
+                }
+            }
+            .sheet(isPresented: $viewModel.settingsMenuIsPresented, onDismiss: {
+                Task {
+                    await viewModel.fetchSets(mode: settingsModel.mode)
+                }
+             }) {
+                 SettingsForm(settingsModel: $settingsModel)
+            }
         }
         .searchable(text: $viewModel.searchText)
+        .environment(settingsModel)
+    }
+}
+
+struct SettingsForm: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var settingsModel: Settings
+    
+    init(settingsModel: Binding<Settings>) {
+        _settingsModel = settingsModel
+    }
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Picker("Mode", selection: $settingsModel.mode) {
+                    ForEach(Settings.Mode.allCases, id: \.rawValue) { mode in
+                        Text(mode.rawValue).tag(mode)
+                    }
+                }
+            }
+            .navigationBarItems(leading: Button("Reset", action: { settingsModel.reset() }), trailing: Button("Done", action: { dismiss() }))
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
@@ -65,6 +107,25 @@ struct PokeBallProgressView: View {
             .onAppear {
                 isAnimating = true
             }
+    }
+}
+
+@Observable
+class Settings {
+    enum Mode: String, CaseIterable {
+        case kevin = "Kevin"
+        case alana = "Alana"
+        case unrestricted = "N/A"
+    }
+    
+    var mode = Mode.kevin
+    
+    var isDefault: Bool {
+        return mode == .kevin
+    }
+    
+    func reset() {
+        mode = .kevin
     }
 }
 

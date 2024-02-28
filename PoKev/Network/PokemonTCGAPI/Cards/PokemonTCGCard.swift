@@ -15,9 +15,9 @@ struct PokemonTCGCardImages: Decodable {
 struct PokemonTCGCard: Decodable, Identifiable {
     let id: String
     let name: String
-    let rarity: String
+    let rarity: String?
     let number: String
-    let nationalPokedexNumbers: [Int]
+    let nationalPokedexNumbers: [Int]?
     let images: PokemonTCGCardImages
     let tcgplayer: PokemonTCGPlayerData?
     let set: PokemonTCGSet

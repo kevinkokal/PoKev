@@ -80,15 +80,15 @@ final class CardsViewModel {
         shouldShowPokedexButton = false
     }
     
-    @MainActor func fetchCards() async {
+    @MainActor func fetchCards(mode: Settings.Mode) async {
         isFetchingCards = true
         do {
             let service = PokemonTCGService()
             switch configuration {
             case .set(let set):
-                allCards = try await service.getCards(forSet: set.id)
+                allCards = try await service.getCards(forSet: set.id, forMode: mode)
             case .pokedexNumber(let pokedexNumber):
-                allCards = try await service.getCards(forPokedexNumber: pokedexNumber)
+                allCards = try await service.getCards(forPokedexNumber: pokedexNumber, forMode: mode)
             }
             
             let initialSortOrder: CardsRefinement.SortOrder
@@ -99,7 +99,7 @@ final class CardsViewModel {
                 initialSortOrder = .releaseDate
             }
             refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
-            refineCards()
+            refineCards(mode: mode)
         } catch let error {
             self.error = error as? RequestError
             shouldPresentError = true
@@ -107,7 +107,7 @@ final class CardsViewModel {
         isFetchingCards = false
     }
     
-    func refineCards() {
+    func refineCards(mode: Settings.Mode) {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {
@@ -116,12 +116,21 @@ final class CardsViewModel {
             }
             
             if refinement.filters.rarities != refinement.filters.allRaritiesInSet {
-                if !refinement.filters.rarities.contains(card.rarity) {
+                if let rarity = card.rarity {
+                    if !refinement.filters.rarities.contains(rarity) {
+                        return false
+                    }
+                } else {
                     return false
                 }
             }
             
-            return card.nationalPokedexNumbers.allSatisfy({ $0 >= 1 && $0 <= 151 })
+            switch mode {
+            case .kevin:
+                return card.nationalPokedexNumbers?.allSatisfy({ $0 >= 1 && $0 <= 151 }) ?? false
+            case .alana, .unrestricted:
+                return true
+            }
         }
         
         let sortedFilteredCards = filteredCards.sorted { card1, card2 in
@@ -132,14 +141,14 @@ final class CardsViewModel {
                 return card1.number.localizedStandardCompare(card2.number) == .orderedAscending
             case .pokedexNumber:
                 // In almost all cases, there will only be one pokedex number. When there are multiple, just grab the first.
-                if let card1FirstPokedexNumber = card1.nationalPokedexNumbers.first {
-                    if let card2FirstPokedexNumber = card2.nationalPokedexNumbers.first {
+                if let card1FirstPokedexNumber = card1.nationalPokedexNumbers?.first {
+                    if let card2FirstPokedexNumber = card2.nationalPokedexNumbers?.first {
                         return card1FirstPokedexNumber < card2FirstPokedexNumber
                     } else {
                         return true
                     }
                 } else {
-                    return card2.nationalPokedexNumbers.first == nil
+                    return card2.nationalPokedexNumbers?.first == nil
                 }
             case .releaseDate:
                 let apiDateFormatter = DateFormatter()
@@ -225,8 +234,6 @@ struct CardsRefinement: Equatable {
 
 extension [PokemonTCGCard] {
     var allRarities: Set<String> {
-        Set(map { $0.rarity })
+        Set(compactMap { $0.rarity })
     }
 }
-
-

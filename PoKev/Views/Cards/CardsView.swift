@@ -9,6 +9,7 @@ import MultiPicker
 import SwiftUI
 
 struct CardsView: View {
+    @Environment(Settings.self) var settings
     @State var viewModel: CardsViewModel
     
     private let gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
@@ -43,7 +44,7 @@ struct CardsView: View {
         }
         .task {
             if viewModel.allCards.isEmpty {
-                await viewModel.fetchCards()
+                await viewModel.fetchCards(mode: settings.mode)
             }
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
@@ -151,6 +152,7 @@ struct NoResultsScreen: View {
 
 struct RefinementButton: View {
     @Binding var viewModel: CardsViewModel
+    @Environment(Settings.self) var settings
     
     init(viewModel: Binding<CardsViewModel>) {
         _viewModel = viewModel
@@ -170,7 +172,7 @@ struct RefinementButton: View {
         }
         .disabled(viewModel.isFetchingCards)
         .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
-            viewModel.refineCards()
+            viewModel.refineCards(mode: settings.mode)
          }) {
             RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
         }

@@ -46,11 +46,11 @@ struct CardView: View {
                         .font(.title2)
                 }
                 Spacer()
-                if viewModel.shouldShowPokedexButton {
-                    if viewModel.card.nationalPokedexNumbers.count > 1 {
+                if let pokedexNumbers = viewModel.card.nationalPokedexNumbers, viewModel.shouldShowPokedexButton {
+                    if pokedexNumbers.count > 1 {
                         Menu {
                             Text("Select Pokedex Number")
-                            ForEach(viewModel.card.nationalPokedexNumbers, id: \.self) { pokedexNumber in
+                            ForEach(pokedexNumbers, id: \.self) { pokedexNumber in
                                 NavigationLink {
                                     CardsView(pokedexNumber: pokedexNumber)
                                 } label: {
@@ -63,7 +63,7 @@ struct CardView: View {
                         }
                     } else {
                         NavigationLink {
-                            CardsView(pokedexNumber: viewModel.card.nationalPokedexNumbers.first!)
+                            CardsView(pokedexNumber: pokedexNumbers.first!)
                         } label: {
                             Image(systemName: "book.pages.fill")
                                 .font(.title2)

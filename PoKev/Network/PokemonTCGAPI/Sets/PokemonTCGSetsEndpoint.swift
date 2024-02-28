@@ -8,7 +8,7 @@
 import Foundation
 
 enum SetsEndpoint {
-    case sets
+    case sets(mode: Settings.Mode)
 }
 
 extension SetsEndpoint: PokemonTCGEndpoint {
@@ -20,10 +20,31 @@ extension SetsEndpoint: PokemonTCGEndpoint {
     }
     
     var queryItems: [URLQueryItem]? {
-        return [
+        var searchQuery: String?
+        let orderBy: String
+        switch self {
+        case .sets(let mode):
+            switch mode {
+            case .unrestricted:
+                orderBy = "releaseDate,name"
+            case .alana:
+                orderBy = "-releaseDate,name"
+                searchQuery = "-series:Other -series:NP -series:POP -name:\"EX Trainer Kit\" -name:\"Kalos Starter Set\" -name:\"Scarlet & Violet Energies\" -name:\"Celebrations: Classic Collection\" -name:\"Legendary Collection\" -name:\"Emerging Powers\" -name:\"Base Set 2\""
+            case .kevin:
+                orderBy = "releaseDate,name"
+                searchQuery = "-series:Other -series:NP -series:POP -name:\"Black Star Promos\" -name:\"EX Trainer Kit\" -name:\"Kalos Starter Set\" -name:\"Scarlet & Violet Energies\" -name:\"Celebrations: Classic Collection\" -name:\"Legendary Collection\" -name:\"Emerging Powers\" -name:\"Base Set 2\""
+            }
+        }
+        
+        var queryItems = [
             URLQueryItem(name: "select", value: "id,name,series,printedTotal,total,releaseDate,images"),
-            URLQueryItem(name: "orderBy", value: "releaseDate,name"),
-            URLQueryItem(name: "q", value: "-series:Other -series:NP -series:POP -name:\"Black Star Promos\" -name:\"EX Trainer Kit\" -name:\"Kalos Starter Set\" -name:\"Scarlet & Violet Energies\" -name:\"Celebrations: Classic Collection\" -name:\"Legendary Collection\" -name:\"Emerging Powers\" -name:\"Base Set 2\"")
+            URLQueryItem(name: "orderBy", value: orderBy)
         ]
+        
+        if let searchQuery = searchQuery {
+            queryItems.append(URLQueryItem(name: "q", value: searchQuery))
+        }
+        
+        return queryItems
     }
 }
