@@ -59,7 +59,10 @@ struct CardsView: View {
                 }
             }
             ToolbarItem {
-                RefinementButton(viewModel: $viewModel)
+                HStack {
+                    CarouselButton(viewModel: $viewModel)
+                    RefinementButton(viewModel: $viewModel)
+                }
             }
         }
         .sheet(isPresented: $viewModel.cardDetailIsPresented) {
@@ -164,8 +167,6 @@ struct RefinementButton: View {
         }) {
             if viewModel.refinement.isDefault {
                 Image(systemName: "line.3.horizontal.decrease.circle")
-                    .resizable()
-                    .scaledToFit()
             } else {
                 Image(systemName: "line.3.horizontal.decrease.circle.fill")
             }
@@ -175,6 +176,28 @@ struct RefinementButton: View {
             viewModel.refineCards(mode: settings.mode)
          }) {
             RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
+        }
+    }
+}
+
+struct CarouselButton: View {
+    @Binding var viewModel: CardsViewModel
+    
+    init(viewModel: Binding<CardsViewModel>) {
+        _viewModel = viewModel
+    }
+    
+    var body: some View {
+        Button(action: {
+            viewModel.carouselViewIsPresented = true
+        }) {
+            Image(systemName: "square.3.layers.3d.down.left")
+        }
+        .disabled(viewModel.isFetchingCards)
+        .sheet(isPresented: $viewModel.carouselViewIsPresented) {
+            CarouselView(imageURLStrings: viewModel.allImageURLStrings)
+                .presentationDetents([.fraction(0.80)])
+                .presentationDragIndicator(.visible)
         }
     }
 }

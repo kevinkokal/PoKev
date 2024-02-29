@@ -18,7 +18,7 @@ struct CardView: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: viewModel.imageURL) { image in
+            CacheAsyncImage(url: viewModel.imageURL) { image in
                 image
                     .resizable()
                     .scaledToFit()

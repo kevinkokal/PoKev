@@ -16,7 +16,7 @@ struct SetView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: viewModel.logoURL) { image in
+            CacheAsyncImage(url: viewModel.logoURL) { image in
                 image.resizable()
                 .scaledToFit()
             } placeholder: {
@@ -38,7 +38,7 @@ struct SetView: View {
                     .font(.subheadline)
                     .fontDesign(.rounded)
                 Spacer()
-                AsyncImage(url: viewModel.symbolURL) { image in
+                CacheAsyncImage(url: viewModel.symbolURL) { image in
                     image
                         .resizable()
                         .scaledToFit()

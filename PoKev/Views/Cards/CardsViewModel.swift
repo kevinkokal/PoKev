@@ -37,6 +37,8 @@ final class CardsViewModel {
     var refinementMenuIsPresented = false
     var refinement: CardsRefinement
     
+    var carouselViewIsPresented = false
+    
     var searchText = "" {
         didSet {
             searchCards()
@@ -66,6 +68,12 @@ final class CardsViewModel {
     
     var navigationSubTitle: String {
         return "\(refinedCards.count) \(allCards.count != refinedCards.count ? "filtered " : "")cards to collect"
+    }
+    
+    var allImageURLStrings: [String] {
+        return refinedCards.compactMap { card in
+            card.images.large
+        }
     }
     
     init(set: PokemonTCGSet) {

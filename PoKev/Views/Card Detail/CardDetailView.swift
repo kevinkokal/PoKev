@@ -12,7 +12,7 @@ struct CardDetailView: View {
     @State var viewModel: CardDetailViewModel
     
     var body: some View {
-        AsyncImage(url: viewModel.imageURL) { image in
+        CacheAsyncImage(url: viewModel.imageURL) { image in
             let colorFromImage = Color((image.getUIImage()?.averageColor) ?? .white)
             
             image
