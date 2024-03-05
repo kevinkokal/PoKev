@@ -42,9 +42,9 @@ extension CardsEndpoint: PokemonTCGEndpoint {
         case .cardsByPokedexNumber(let pokedexNumber, let mode):
             switch mode {
             case .unrestricted:
-                break
+                searchQuery = "nationalPokedexNumbers:\(pokedexNumber)"
             case .alana:
-                searchQuery = "-rarity:Common -rarity:Uncommon -set.series:Other -set.series:NP -series:POP -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
+                searchQuery = "nationalPokedexNumbers:\(pokedexNumber) -rarity:Common -rarity:Uncommon -set.series:Other -set.series:NP -series:POP -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
             case .kevin:
                 searchQuery = "nationalPokedexNumbers:\(pokedexNumber) -set.series:Other -set.series:NP -series:POP -set.name:\"Black Star Promos\" -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
             }
