@@ -29,7 +29,7 @@ struct CardsView: View {
             } else if viewModel.shouldShowNoResultsScreen {
                 NoResultsScreen(refinementMenuIsPresented: $viewModel.refinementMenuIsPresented)
             } else {
-                ScrollView(showsIndicators: false) {
+                ScrollView() {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
                         ForEach(viewModel.cardsToDisplay) { card in
                             CardView(card: card, set: card.set, shouldShowPokedexButton: viewModel.shouldShowPokedexButton).onTapGesture {
