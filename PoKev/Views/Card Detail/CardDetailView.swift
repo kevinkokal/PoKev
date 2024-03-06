@@ -8,17 +8,19 @@
 import LookingGlassUI
 import SwiftUI
 
+//TODO: potentially remove / rework now that tapping on a card brings up the carousel view instead of this
 struct CardDetailView: View {
     @State var viewModel: CardDetailViewModel
     
     var body: some View {
         CacheAsyncImage(url: viewModel.imageURL) { image in
-            let colorFromImage = Color((image.getUIImage()?.averageColor) ?? .white)
+//            let colorFromImage = Color((image.getUIImage()?.averageColor) ?? .white)
             
             image
                 .resizable()
+                .cornerRadius(8)
                 .scaledToFit()
-                .shimmer(color: colorFromImage)
+                .shimmer(color: .gray/*colorFromImage*/)
         } placeholder: {
             ProgressView()
                 .controlSize(.large)

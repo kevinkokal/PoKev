@@ -66,8 +66,8 @@ struct CardsView: View {
             }
         }
         .sheet(isPresented: $viewModel.cardDetailIsPresented) {
-            if let selectedCard = viewModel.selectedCard {
-                CardDetailView(viewModel: CardDetailViewModel(card: selectedCard))
+            if let selectedCardIndex = viewModel.cardsToDisplay.firstIndex(where: { $0 == viewModel.selectedCard }) {
+                CarouselView(imageURLStrings: viewModel.allImageURLStrings, currentIndex: selectedCardIndex)
                     .presentationDetents([.fraction(0.75)])
                     .presentationDragIndicator(.visible)
             }

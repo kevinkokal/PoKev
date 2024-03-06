@@ -21,6 +21,7 @@ struct CardView: View {
             CacheAsyncImage(url: viewModel.imageURL) { image in
                 image
                     .resizable()
+                    .cornerRadius(2)
                     .scaledToFit()
             } placeholder: {
                 ProgressView()

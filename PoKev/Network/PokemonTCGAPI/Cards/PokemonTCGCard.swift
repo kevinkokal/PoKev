@@ -12,7 +12,7 @@ struct PokemonTCGCardImages: Decodable {
     let large: String?
 }
 
-struct PokemonTCGCard: Decodable, Identifiable {
+struct PokemonTCGCard: Decodable, Identifiable, Equatable {
     let id: String
     let name: String
     let rarity: String?
@@ -21,6 +21,10 @@ struct PokemonTCGCard: Decodable, Identifiable {
     let images: PokemonTCGCardImages
     let tcgplayer: PokemonTCGPlayerData?
     let set: PokemonTCGSet
+    
+    static func == (lhs: PokemonTCGCard, rhs: PokemonTCGCard) -> Bool {
+        lhs.id == rhs.id
+    }
     
     var isPotentialDeal: Bool {
         if let holofoilPriceData = tcgplayer?.prices?.holofoil, let directLow = holofoilPriceData.directLow, let market = holofoilPriceData.market {

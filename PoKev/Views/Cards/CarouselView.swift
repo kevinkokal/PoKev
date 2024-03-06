@@ -5,15 +5,16 @@
 //  Created by Kevin Kokal on 2/29/24.
 //
 
+import LookingGlassUI
 import SwiftUI
 
 struct CarouselView: View {
-    @State private var currentIndex: Int = 0
-    @GestureState private var dragOffset: CGFloat = 0
+    @State private var currentIndex: Int
     let imageURLStrings: [String]
     
-    init(imageURLStrings: [String]) {
+    init(imageURLStrings: [String], currentIndex: Int = 0) {
         self.imageURLStrings = imageURLStrings
+        self.currentIndex = currentIndex
     }
     
     var body: some View {
@@ -21,7 +22,7 @@ struct CarouselView: View {
             VStack {
                 ZStack {
                     ForEach(0..<imageURLStrings.count, id:\.self) { index in
-                        CarouselImage(urlString: imageURLStrings[index], currentIndex: $currentIndex, index: index, dragOffset: dragOffset)
+                        CarouselImage(urlString: imageURLStrings[index], currentIndex: $currentIndex, index: index)
                     }
                 }
                 .gesture(
@@ -51,6 +52,7 @@ struct CarouselView: View {
                             Image(systemName: "arrow.left")
                                 .font(.title)
                         }
+                        .buttonRepeatBehavior(.enabled)
                         .disabled(currentIndex == 0)
                         Spacer()
                         Button {
@@ -61,6 +63,7 @@ struct CarouselView: View {
                             Image(systemName: "arrow.right")
                                 .font(.title)
                         }
+                        .buttonRepeatBehavior(.enabled)
                         .disabled(currentIndex == imageURLStrings.count - 1)
                     }
                 }
@@ -73,26 +76,28 @@ struct CarouselImage: View {
     private var urlString: String
     @Binding private var currentIndex: Int
     private var index: Int
-    @GestureState private var dragOffset: CGFloat
     
-    init(urlString: String, currentIndex: Binding<Int>, index: Int, dragOffset: CGFloat) {
+    init(urlString: String, currentIndex: Binding<Int>, index: Int) {
         self.urlString = urlString
         _currentIndex = currentIndex
         self.index = index
-        _dragOffset = GestureState(wrappedValue: dragOffset)
     }
     
     var body: some View {
-        CacheAsyncImage(url: URL(string: urlString)) { image in
+        AsyncImage(url: URL(string: urlString)) { image in
             image
                 .resizable()
                 .frame(width: 300, height: 400)
+                .cornerRadius(8)
                 .opacity(currentIndex == index ? 1.0 : 0.5)
+                .shimmer(color: .gray)
                 .scaleEffect(currentIndex == index ? 1.2 : 0.8)
-                .offset(x: CGFloat(index - currentIndex) * 300 + dragOffset, y: 0)
+                .offset(x: CGFloat(index - currentIndex) * 300, y: 0)
         } placeholder: {
             PokeBallProgressView()
+                .offset(x: CGFloat(index - currentIndex) * 300, y: 0)
         }
+        .motionManager(updateInterval: 0.1, disabled: false)
     }
 }
 
