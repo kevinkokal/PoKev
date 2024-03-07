@@ -67,6 +67,8 @@ struct SetsView: View {
                 }
              }) {
                  SettingsForm(settingsModel: $settingsModel)
+                     .presentationDetents([.fraction(0.33)])
+                     .presentationDragIndicator(.visible)
             }
         }
         .searchable(text: $viewModel.searchText)
@@ -130,7 +132,7 @@ class Settings: Equatable {
     enum Mode: String, CaseIterable {
         case kevin = "Kevin"
         case alana = "Alana"
-        case unrestricted = "N/A"
+        case unrestricted = "Unrestricted"
     }
     
     var mode = Mode.kevin
