@@ -11,6 +11,7 @@ import SwiftUI
 struct SetsView: View {
     @State var viewModel = SetsViewModel()
     @State var settingsModel = Settings()
+    @State var previousSettingsModel = Settings()
     
     var body: some View {
         NavigationStack {
@@ -58,8 +59,11 @@ struct SetsView: View {
                 }
             }
             .sheet(isPresented: $viewModel.settingsMenuIsPresented, onDismiss: {
-                Task {
-                    await viewModel.fetchSets(mode: settingsModel.mode)
+                if settingsModel != previousSettingsModel {
+                    Task {
+                        await viewModel.fetchSets(mode: settingsModel.mode)
+                    }
+                    previousSettingsModel = settingsModel.copy()
                 }
              }) {
                  SettingsForm(settingsModel: $settingsModel)
@@ -118,7 +122,11 @@ struct PokeBallProgressView: View {
 }
 
 @Observable
-class Settings {
+class Settings: Equatable {
+    static func == (lhs: Settings, rhs: Settings) -> Bool {
+        lhs.mode == rhs.mode
+    }
+    
     enum Mode: String, CaseIterable {
         case kevin = "Kevin"
         case alana = "Alana"
@@ -133,6 +141,12 @@ class Settings {
     
     func reset() {
         mode = .kevin
+    }
+    
+    func copy() -> Settings {
+        let settings = Settings()
+        settings.mode = mode
+        return settings
     }
 }
 
