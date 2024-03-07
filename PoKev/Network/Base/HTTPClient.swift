@@ -43,7 +43,7 @@ extension HTTPClient {
             case 200...299:
                 do {
                     return try JSONDecoder().decode(responseModel, from: data)
-                } catch let error {
+                } catch {
                     throw RequestError.decode
                 }
             case 401:

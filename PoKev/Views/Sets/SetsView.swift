@@ -42,6 +42,13 @@ struct SetsView: View {
             .navigationTitle("Pokemon TCG Sets")
             .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        PokemonListView()
+                    } label: {
+                        Image(systemName: "list.number")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         viewModel.settingsMenuIsPresented = true

@@ -6,7 +6,7 @@
 //
 
 // TODO: potentially remove this file as it's currently not used
-//import Foundation
+import Foundation
 //import SwiftUI
 //
 ////https://github.com/bbaars/UIImageAverageColor/blob/master/AverageBackgroundColor/UIImage%2BExtension.swift
@@ -56,3 +56,19 @@
 //        return ImageRenderer(content: image).uiImage
 //    }
 //}
+
+extension String {
+    func matches(for regex: String) -> [String] {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: self,
+                                        range: NSRange(startIndex..., in: self))
+            return results.map {
+                String(self[Range($0.range, in: self)!])
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return []
+        }
+    }
+}

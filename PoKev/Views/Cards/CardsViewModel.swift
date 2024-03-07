@@ -62,7 +62,7 @@ final class CardsViewModel {
                 return "\(set.name) Set"
             }
         case .pokedexNumber(let pokedexNumber):
-            return "Pokedex: \(pokedexNumber)"
+            return "Pokedex #\(pokedexNumber)"
         }
     }
     
