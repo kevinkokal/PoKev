@@ -1,5 +1,5 @@
 //
-//  PokemonSet.swift
+//  PokemonTCGSet.swift
 //  PoKev
 //
 //  Created by Kevin Kokal on 1/23/24.

@@ -1,5 +1,5 @@
 //
-//  PokemonTCGCardsEndpoint.swift
+//  CardsEndpoint.swift
 //  PoKev
 //
 //  Created by Kevin Kokal on 1/25/24.
@@ -8,8 +8,8 @@
 import Foundation
 
 enum CardsEndpoint {
-    case cardsBySetId(_ setId: String, mode: Settings.Mode)
-    case cardsByPokedexNumber(_ pokedexNumber: Int, mode: Settings.Mode)
+    case cardsBySetId(_ setId: String, mode: PokevSettings.Mode)
+    case cardsByPokedexNumber(_ pokedexNumber: Int, mode: PokevSettings.Mode)
 }
 
 extension CardsEndpoint: PokemonTCGEndpoint {

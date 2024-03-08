@@ -36,10 +36,10 @@ final class SetsViewModel {
     }
 
     @MainActor
-    func fetchSets(mode: Settings.Mode) async {
+    func fetchSets(mode: PokevSettings.Mode) async {
         isFetchingSets = true
         do {
-            allSets = try await PokemonTCGService().getSets(forMode: mode)
+            allSets = try await PokemonTCGAPIService().getSets(for: mode)
             isFetchingSets = false
         } catch let error {
             self.error = error as? RequestError

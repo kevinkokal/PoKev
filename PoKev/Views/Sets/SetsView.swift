@@ -10,8 +10,8 @@ import SwiftUI
 
 struct SetsView: View {
     @State var viewModel = SetsViewModel()
-    @State var settingsModel = Settings()
-    @State var previousSettingsModel = Settings()
+    @State var settingsModel = PokevSettings()
+    @State var previousSettingsModel = PokevSettings()
     
     var body: some View {
         NavigationStack {
@@ -45,7 +45,7 @@ struct SetsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
-                        PokemonListView()
+                        PokemonsView()
                     } label: {
                         Image(systemName: "list.number")
                     }
@@ -78,9 +78,9 @@ struct SetsView: View {
 
 struct SettingsForm: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var settingsModel: Settings
+    @Binding var settingsModel: PokevSettings
     
-    init(settingsModel: Binding<Settings>) {
+    init(settingsModel: Binding<PokevSettings>) {
         _settingsModel = settingsModel
     }
     
@@ -88,12 +88,12 @@ struct SettingsForm: View {
         NavigationView {
             Form {
                 Picker("Mode", selection: $settingsModel.mode) {
-                    ForEach(Settings.Mode.allCases, id: \.rawValue) { mode in
+                    ForEach(PokevSettings.Mode.allCases, id: \.rawValue) { mode in
                         Text(mode.rawValue).tag(mode)
                     }
                 }
             }
-            .navigationBarItems(leading: Button("Reset", action: { settingsModel.reset() }), trailing: Button("Done", action: { dismiss() }))
+            .navigationBarItems(leading: Button("Reset", action: { settingsModel.reset() }).disabled(settingsModel.isDefault), trailing: Button("Done", action: { dismiss() }))
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -124,8 +124,8 @@ struct PokeBallProgressView: View {
 }
 
 @Observable
-class Settings: Equatable {
-    static func == (lhs: Settings, rhs: Settings) -> Bool {
+class PokevSettings: Equatable {
+    static func == (lhs: PokevSettings, rhs: PokevSettings) -> Bool {
         lhs.mode == rhs.mode
     }
     
@@ -145,8 +145,8 @@ class Settings: Equatable {
         mode = .kevin
     }
     
-    func copy() -> Settings {
-        let settings = Settings()
+    func copy() -> PokevSettings {
+        let settings = PokevSettings()
         settings.mode = mode
         return settings
     }

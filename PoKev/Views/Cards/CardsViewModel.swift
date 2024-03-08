@@ -88,15 +88,15 @@ final class CardsViewModel {
         shouldShowPokedexButton = false
     }
     
-    @MainActor func fetchCards(mode: Settings.Mode) async {
+    @MainActor func fetchCards(mode: PokevSettings.Mode) async {
         isFetchingCards = true
         do {
-            let service = PokemonTCGService()
+            let service = PokemonTCGAPIService()
             switch configuration {
             case .set(let set):
-                allCards = try await service.getCards(forSet: set.id, forMode: mode)
+                allCards = try await service.getCards(for: set.id, mode: mode)
             case .pokedexNumber(let pokedexNumber):
-                allCards = try await service.getCards(forPokedexNumber: pokedexNumber, forMode: mode)
+                allCards = try await service.getCards(for: pokedexNumber, mode: mode)
             }
             
             let initialSortOrder: CardsRefinement.SortOrder
@@ -115,7 +115,7 @@ final class CardsViewModel {
         isFetchingCards = false
     }
     
-    func refineCards(mode: Settings.Mode) {
+    func refineCards(mode: PokevSettings.Mode) {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {

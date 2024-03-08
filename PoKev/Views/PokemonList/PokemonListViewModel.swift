@@ -9,12 +9,12 @@ import Observation
 
 @Observable
 final class PokemonListViewModel {
-    private(set) var allPokemon = [PokemonResponse.Pokemon]() {
+    private(set) var allPokemon = [PokemonsMetadataResponse.PokemonMetadata]() {
         didSet {
             pokemonToDisplay = allPokemon
         }
     }
-    private(set) var pokemonToDisplay = [PokemonResponse.Pokemon]()
+    private(set) var pokemonToDisplay = [PokemonsMetadataResponse.PokemonMetadata]()
     private(set) var error: RequestError?
     var shouldPresentError = false
     var isFetchingPokemon = false
@@ -34,10 +34,10 @@ final class PokemonListViewModel {
     }
 
     @MainActor
-    func fetchPokemon(mode: Settings.Mode) async {
+    func fetchPokemon(mode: PokevSettings.Mode) async {
         isFetchingPokemon = true
         do {
-            allPokemon = try await PokeAPIService().getPokemon(mode: mode)
+            allPokemon = try await PokeAPIService().getPokemonsMetadata(with: mode)
             isFetchingPokemon = false
         } catch let error {
             self.error = error as? RequestError

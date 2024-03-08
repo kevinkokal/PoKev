@@ -1,5 +1,5 @@
 //
-//  PokemonListView.swift
+//  PokemonsView.swift
 //  PoKev
 //
 //  Created by Kevin Kokal on 3/6/24.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct PokemonListView: View {
+struct PokemonsView: View {
     @State private var viewModel = PokemonListViewModel()
-    @Environment(Settings.self) var settings
+    @Environment(PokevSettings.self) var settings
     
     var body: some View {
         ScrollView() {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.pokemonToDisplay) { pokemon in
                     Group {
-                        if let pokedexNumber = pokemon.number {
+                        if let pokedexNumber = pokemon.pokedexNumber {
                             NavigationLink {
                                 CardsView(pokedexNumber: pokedexNumber)
                             } label: {
@@ -44,11 +44,10 @@ struct PokemonListView: View {
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
         .navigationTitle("Pokemon")
-        .navigationBarTitleDisplayMode(.automatic)
         .searchable(text: $viewModel.searchText)
     }
 }
 
 #Preview {
-    PokemonListView()
+    PokemonsView()
 }

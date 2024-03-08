@@ -9,7 +9,7 @@ import MultiPicker
 import SwiftUI
 
 struct CardsView: View {
-    @Environment(Settings.self) var settings
+    @Environment(PokevSettings.self) var settings
     @State var viewModel: CardsViewModel
     
     private let gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
@@ -119,7 +119,7 @@ struct RefinementForm: View {
                     }
                 }
             }
-            .navigationBarItems(leading: Button("Reset", action: { refinementModel.reset() }), trailing: Button("Done", action: { dismiss() }))
+            .navigationBarItems(leading: Button("Reset", action: { refinementModel.reset() }).disabled(refinementModel.isDefault), trailing: Button("Done", action: { dismiss() }))
             .navigationTitle("Refine")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -155,7 +155,7 @@ struct NoResultsScreen: View {
 
 struct RefinementButton: View {
     @Binding var viewModel: CardsViewModel
-    @Environment(Settings.self) var settings
+    @Environment(PokevSettings.self) var settings
     
     init(viewModel: Binding<CardsViewModel>) {
         _viewModel = viewModel

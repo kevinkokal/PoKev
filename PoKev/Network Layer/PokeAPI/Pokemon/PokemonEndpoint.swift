@@ -8,7 +8,7 @@
 import Foundation
 
 enum PokemonEndpoint {
-    case names(mode: Settings.Mode)
+    case names(mode: PokevSettings.Mode)
 }
 
 extension PokemonEndpoint: PokeAPIEndpoint {

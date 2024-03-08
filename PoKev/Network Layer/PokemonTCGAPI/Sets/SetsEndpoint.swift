@@ -8,7 +8,7 @@
 import Foundation
 
 enum SetsEndpoint {
-    case sets(mode: Settings.Mode)
+    case sets(mode: PokevSettings.Mode)
 }
 
 extension SetsEndpoint: PokemonTCGEndpoint {

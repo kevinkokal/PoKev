@@ -1,5 +1,5 @@
 //
-//  APIClient.swift
+//  HTTPClient.swift
 //  PokeKev
 //
 //  Created by Kevin Kokal on 01/23/2024.

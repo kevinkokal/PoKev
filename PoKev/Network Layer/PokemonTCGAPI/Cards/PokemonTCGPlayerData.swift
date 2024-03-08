@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct PokemonTCGPlayerData: Decodable {
+    let url: String
+    let updatedAt: String
+    let prices: PokemonTCGPlayerPriceData?
+}
+
 struct PokemonTCGPlayerPriceData: Decodable {
     struct PriceDataForType: Decodable {
         let low: Double?
@@ -18,10 +24,4 @@ struct PokemonTCGPlayerPriceData: Decodable {
     let holofoil: PriceDataForType?
     let normal: PriceDataForType?
     let reverseHolofoil: PriceDataForType?
-}
-
-struct PokemonTCGPlayerData: Decodable {
-    let url: String
-    let updatedAt: String
-    let prices: PokemonTCGPlayerPriceData?
 }
