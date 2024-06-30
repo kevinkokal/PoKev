@@ -31,6 +31,7 @@ struct SetView: View {
                     .lineLimit(2)
                     .font(.title2)
                     .fontDesign(.rounded)
+                    .fontWeight(.semibold)
                     .multilineTextAlignment(.trailing)
                 Spacer()
                 Text(viewModel.seriesTitle)

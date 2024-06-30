@@ -10,13 +10,18 @@ import Foundation
 struct PokemonsMetadataResponse: Decodable {
     let pokemonsMetadata: [PokemonMetadata]
     
+    enum CodingKeys: String, CodingKey {
+        case pokemonsMetadata = "results"
+    }
+    
     struct PokemonMetadata: Decodable, Identifiable {
+        let name: String
+        private let url: String
+        
         var id: String {
             name + url
         }
         
-        let name: String
-        private let url: String
         var pokedexNumber: Int? {
             if let lastMatch = url.matches(for: "(\\d+)(?!.*\\d)").last {
                 return Int(lastMatch)

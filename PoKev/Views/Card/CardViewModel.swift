@@ -13,6 +13,7 @@ final class CardViewModel {
     let card: PokemonTCGCard
     let set: PokemonTCGSet
     let shouldShowPokedexButton: Bool
+    let shouldShowSetButton: Bool
 
     var imageURL: URL? {
         if let urlString = card.images.small {
@@ -42,9 +43,10 @@ final class CardViewModel {
         return card.isPotentialDeal ? highlightColor : nil
     }
     
-    init(card: PokemonTCGCard, set: PokemonTCGSet, shouldShowPokedexButton: Bool) {
+    init(card: PokemonTCGCard, set: PokemonTCGSet, shouldShowPokedexButton: Bool, shouldShowSetButton: Bool) {
         self.card = card
         self.set = set
         self.shouldShowPokedexButton = shouldShowPokedexButton
+        self.shouldShowSetButton = shouldShowSetButton
     }
 }

@@ -26,6 +26,7 @@ final class CardsViewModel {
     private(set) var cardsToDisplay = [PokemonTCGCard]()
     private(set) var isFetchingCards = false
     let shouldShowPokedexButton: Bool
+    let shouldShowSetButton: Bool
     private(set) var shouldShowNoResultsScreen = false
     
     private(set) var error: RequestError?
@@ -80,12 +81,14 @@ final class CardsViewModel {
         configuration = .set(set)
         refinement = CardsRefinement(initialSortOrder: .setNumber)
         shouldShowPokedexButton = true
+        shouldShowSetButton = false
     }
     
     init(pokedexNumber: Int) {
         configuration = .pokedexNumber(pokedexNumber)
         refinement = CardsRefinement(initialSortOrder: .releaseDate)
         shouldShowPokedexButton = false
+        shouldShowSetButton = true
     }
     
     @MainActor func fetchCards(mode: PokevSettings.Mode) async {

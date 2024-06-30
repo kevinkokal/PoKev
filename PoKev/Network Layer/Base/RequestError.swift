@@ -6,7 +6,7 @@
 //
 
 enum RequestError: Error {
-    case decode
+    case decode(errorDescription: String)
     case invalidURL
     case noResponse
     case teapot
@@ -16,8 +16,8 @@ enum RequestError: Error {
     
     var customMessage: String {
         switch self {
-        case .decode:
-            return "Decode error"
+        case .decode(let errorDescription):
+            return "Decode error: \(errorDescription)"
         case .unauthorized:
             return "Session expired"
         case .invalidURL:

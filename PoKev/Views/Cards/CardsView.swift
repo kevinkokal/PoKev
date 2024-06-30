@@ -32,7 +32,7 @@ struct CardsView: View {
                 ScrollView() {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
                         ForEach(viewModel.cardsToDisplay) { card in
-                            CardView(card: card, set: card.set, shouldShowPokedexButton: viewModel.shouldShowPokedexButton).onTapGesture {
+                            CardView(card: card, set: card.set, shouldShowPokedexButton: viewModel.shouldShowPokedexButton, shouldShowSetButton: viewModel.shouldShowSetButton).onTapGesture {
                                 viewModel.cardDetailIsPresented = true
                                 viewModel.selectedCard = card
                             }
