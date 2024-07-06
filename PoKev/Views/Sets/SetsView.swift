@@ -36,7 +36,7 @@ struct SetsView: View {
             }
             .task {
                 if viewModel.allSets.isEmpty {
-                    await viewModel.fetchSets(mode: settingsModel.mode)
+                    await viewModel.fetchSets(with: settingsModel)
                 }
             }
             .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
@@ -68,13 +68,13 @@ struct SetsView: View {
             .sheet(isPresented: $viewModel.settingsMenuIsPresented, onDismiss: {
                 if settingsModel != previousSettingsModel {
                     Task {
-                        await viewModel.fetchSets(mode: settingsModel.mode)
+                        await viewModel.fetchSets(with: settingsModel)
                     }
                     previousSettingsModel = settingsModel.copy()
                 }
              }) {
                  SettingsForm(settingsModel: $settingsModel)
-                     .presentationDetents([.fraction(0.33)])
+                     .presentationDetents([.fraction(0.50)])
                      .presentationDragIndicator(.visible)
             }
         }
@@ -94,10 +94,12 @@ struct SettingsForm: View {
     var body: some View {
         NavigationView {
             Form {
-                Picker("Mode", selection: $settingsModel.mode) {
-                    ForEach(PokevSettings.Mode.allCases, id: \.rawValue) { mode in
-                        Text(mode.rawValue).tag(mode)
-                    }
+                Section(header: Text("Sets")) {
+                    Toggle("Only Standard Sets", isOn: $settingsModel.onlyStandardSets)
+                }
+                Section(header: Text("Cards")) {
+                    Toggle("Include Common and Uncommon", isOn: $settingsModel.includeCommonsAndUncommons)
+                    Toggle("Only Generation One", isOn: $settingsModel.onlyGenerationOne)
                 }
             }
             .navigationBarItems(leading: Button("Reset", action: { settingsModel.reset() }).disabled(settingsModel.isDefault), trailing: Button("Done", action: { dismiss() }))
@@ -133,28 +135,28 @@ struct PokeBallProgressView: View {
 @Observable
 class PokevSettings: Equatable {
     static func == (lhs: PokevSettings, rhs: PokevSettings) -> Bool {
-        lhs.mode == rhs.mode
+        lhs.includeCommonsAndUncommons == rhs.includeCommonsAndUncommons && lhs.onlyGenerationOne == rhs.onlyGenerationOne && lhs.onlyStandardSets == rhs.onlyStandardSets
     }
     
-    enum Mode: String, CaseIterable {
-        case kevin = "Kevin"
-        case alana = "Alana"
-        case unrestricted = "Unrestricted"
-    }
-    
-    var mode = Mode.kevin
+    var includeCommonsAndUncommons = true
+    var onlyGenerationOne = true
+    var onlyStandardSets = true
     
     var isDefault: Bool {
-        return mode == .kevin
+        return includeCommonsAndUncommons && onlyGenerationOne && onlyStandardSets
     }
     
     func reset() {
-        mode = .kevin
+        includeCommonsAndUncommons = true
+        onlyGenerationOne = true
+        onlyStandardSets = true
     }
     
     func copy() -> PokevSettings {
         let settings = PokevSettings()
-        settings.mode = mode
+        settings.includeCommonsAndUncommons = includeCommonsAndUncommons
+        settings.onlyGenerationOne = onlyGenerationOne
+        settings.onlyStandardSets = onlyStandardSets
         return settings
     }
 }

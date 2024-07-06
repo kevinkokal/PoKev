@@ -39,7 +39,7 @@ struct PokemonsView: View {
         }
         .task {
             if viewModel.allPokemon.isEmpty {
-                await viewModel.fetchPokemon(mode: settings.mode)
+                await viewModel.fetchPokemon(with: settings)
             }
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}

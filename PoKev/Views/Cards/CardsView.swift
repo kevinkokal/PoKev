@@ -48,7 +48,7 @@ struct CardsView: View {
         }
         .task {
             if viewModel.allCards.isEmpty {
-                await viewModel.fetchCards(mode: settings.mode)
+                await viewModel.fetchCards(with: settings)
             }
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
@@ -116,8 +116,8 @@ struct RefinementForm: View {
                         }
                     }
                     Picker("Order", selection: $refinementModel.currentSort.order) {
-                        Text("Ascending").tag(CardsRefinement.Sort.Order.ascending)
-                        Text("Descending").tag(CardsRefinement.Sort.Order.descending)
+                        Text("Ascending").tag(SortOrder.forward)
+                        Text("Descending").tag(SortOrder.reverse)
                     }
                 }
                 Section(header: Text("Price Filters")) {
@@ -185,7 +185,7 @@ struct RefinementButton: View {
         }
         .disabled(viewModel.isFetchingCards)
         .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
-            viewModel.refineCards(mode: settings.mode)
+            viewModel.refineCards(with: settings)
          }) {
             RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
         }

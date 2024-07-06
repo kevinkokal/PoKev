@@ -8,7 +8,7 @@
 import Foundation
 
 enum SetsEndpoint {
-    case sets(mode: PokevSettings.Mode)
+    case sets(settings: PokevSettings)
 }
 
 extension SetsEndpoint: PokemonTCGEndpoint {
@@ -21,24 +21,17 @@ extension SetsEndpoint: PokemonTCGEndpoint {
     
     var queryItems: [URLQueryItem]? {
         var searchQuery: String?
-        let orderBy: String
+        
         switch self {
-        case .sets(let mode):
-            switch mode {
-            case .unrestricted:
-                orderBy = "releaseDate,name"
-            case .alana:
-                orderBy = "-releaseDate,name"
-                searchQuery = "-series:Other -series:NP -series:POP -name:\"EX Trainer Kit\" -name:\"Kalos Starter Set\" -name:\"Scarlet & Violet Energies\" -name:\"Celebrations: Classic Collection\" -name:\"Legendary Collection\" -name:\"Emerging Powers\" -name:\"Base Set 2\""
-            case .kevin:
-                orderBy = "releaseDate,name"
+        case .sets(let settings):
+            if settings.onlyStandardSets {
                 searchQuery = "-series:Other -series:NP -series:POP -name:\"Black Star Promos\" -name:\"EX Trainer Kit\" -name:\"Kalos Starter Set\" -name:\"Scarlet & Violet Energies\" -name:\"Celebrations: Classic Collection\" -name:\"Legendary Collection\" -name:\"Emerging Powers\" -name:\"Base Set 2\""
             }
         }
         
         var queryItems = [
             URLQueryItem(name: "select", value: "id,name,series,printedTotal,total,releaseDate,images"),
-            URLQueryItem(name: "orderBy", value: orderBy)
+            URLQueryItem(name: "orderBy", value: "releaseDate,name")
         ]
         
         if let searchQuery = searchQuery {

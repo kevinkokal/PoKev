@@ -34,10 +34,10 @@ final class PokemonListViewModel {
     }
 
     @MainActor
-    func fetchPokemon(mode: PokevSettings.Mode) async {
+    func fetchPokemon(with settings: PokevSettings) async {
         isFetchingPokemon = true
         do {
-            allPokemon = try await PokeAPIService().getPokemonsMetadata(with: mode)
+            allPokemon = try await PokeAPIService().getPokemonsMetadata(with: settings)
             isFetchingPokemon = false
         } catch let error {
             self.error = error as? RequestError

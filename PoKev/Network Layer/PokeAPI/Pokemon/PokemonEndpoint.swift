@@ -8,7 +8,7 @@
 import Foundation
 
 enum PokemonEndpoint {
-    case names(mode: PokevSettings.Mode)
+    case names(settings: PokevSettings)
 }
 
 extension PokemonEndpoint: PokeAPIEndpoint {
@@ -23,9 +23,9 @@ extension PokemonEndpoint: PokeAPIEndpoint {
         var queryItems: [URLQueryItem]
         
         switch self {
-        case .names(let mode):
+        case .names(let settings):
             queryItems = [
-                URLQueryItem(name: "limit", value: mode == .kevin ? "151" : "1025")
+                URLQueryItem(name: "limit", value: settings.onlyGenerationOne ? "151" : "1025")
             ]
         }
         

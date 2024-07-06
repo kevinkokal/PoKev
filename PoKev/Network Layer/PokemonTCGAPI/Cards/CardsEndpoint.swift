@@ -8,8 +8,8 @@
 import Foundation
 
 enum CardsEndpoint {
-    case cardsBySetId(_ setId: String, mode: PokevSettings.Mode)
-    case cardsByPokedexNumber(_ pokedexNumber: Int, mode: PokevSettings.Mode)
+    case cardsBySetId(_ setId: String, settings: PokevSettings)
+    case cardsByPokedexNumber(_ pokedexNumber: Int, settings: PokevSettings)
     case cardsByIds(_ ids: [String])
 }
 
@@ -22,39 +22,40 @@ extension CardsEndpoint: PokemonTCGEndpoint {
     }
     
     var queryItems: [URLQueryItem]? {
-        var searchQuery: String?
+        var searchQuery: String
         var queryItems: [URLQueryItem]
         
         switch self {
-        case .cardsBySetId(let setId, let mode):
-            switch mode {
-            case .unrestricted:
-                searchQuery = "set.id:\(setId)"
-            case .alana:
-                searchQuery = "-rarity:Common -rarity:Uncommon set.id:\(setId)"
-            case .kevin:
-                searchQuery = "set.id:\(setId) nationalPokedexNumbers:[1 TO 151]"
+        case .cardsBySetId(let setId, let settings):
+            searchQuery = "set.id:\(setId)"
+            
+            if !settings.includeCommonsAndUncommons {
+                searchQuery += " -rarity:Common -rarity:Uncommon"
+            }
+            
+            if settings.onlyGenerationOne {
+                searchQuery += " nationalPokedexNumbers:[1 TO 151]"
             }
             
             queryItems = [
                 URLQueryItem(name: "orderBy", value: "number"),
                 URLQueryItem(name: "select", value: "id,name,set,number,images,tcgplayer,nationalPokedexNumbers,rarity")
             ]
-        case .cardsByPokedexNumber(let pokedexNumber, let mode):
-            switch mode {
-            case .unrestricted:
-                searchQuery = "nationalPokedexNumbers:\(pokedexNumber)"
-            case .alana:
-                searchQuery = "nationalPokedexNumbers:\(pokedexNumber) -rarity:Common -rarity:Uncommon -set.series:Other -set.series:NP -series:POP -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
-            case .kevin:
-                searchQuery = "nationalPokedexNumbers:\(pokedexNumber) -set.series:Other -set.series:NP -series:POP -set.name:\"Black Star Promos\" -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
+        case .cardsByPokedexNumber(let pokedexNumber, let settings):
+            searchQuery = "nationalPokedexNumbers:\(pokedexNumber)"
+            
+            if settings.onlyStandardSets {
+                searchQuery += " -set.series:Other -set.series:NP -series:POP -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
+            }
+            
+            if !settings.includeCommonsAndUncommons {
+                searchQuery += " -rarity:Common -rarity:Uncommon"
             }
             
             queryItems = [
                 URLQueryItem(name: "orderBy", value: "set.releaseDate,number"),
                 URLQueryItem(name: "select", value: "id,name,set,number,images,tcgplayer,nationalPokedexNumbers,rarity")
             ]
-            
         case .cardsByIds(let ids):
             searchQuery = "(\(ids.map { "id:\($0)" }.joined(separator: " OR ")))"
             
@@ -64,10 +65,7 @@ extension CardsEndpoint: PokemonTCGEndpoint {
             ]
         }
         
-        if let searchQuery = searchQuery {
-            queryItems.append(URLQueryItem(name: "q", value: searchQuery))
-        }
-        
+        queryItems.append(URLQueryItem(name: "q", value: searchQuery))
         return queryItems
     }
 }
