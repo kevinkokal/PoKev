@@ -22,6 +22,10 @@ struct CardsView: View {
         viewModel = CardsViewModel(pokedexNumber: pokedexNumber)
     }
     
+    init() {
+        viewModel = CardsViewModel()
+    }
+    
     var body: some View {
         Group {
             if viewModel.isFetchingCards {
@@ -97,15 +101,23 @@ struct RefinementForm: View {
         NavigationView {
             Form {
                 Section(header: Text("Sort")) {
-                    Picker("Sort Order", selection: $refinementModel.currentSortOrder) {
-                        Text("Alphabetical").tag(CardsRefinement.SortOrder.alphabetical)
+                    Picker("Property", selection: $refinementModel.currentSort.property) {
+                        Text("Alphabetical").tag(CardsRefinement.Sort.SortProperty.alphabetical)
                         switch configuration {
                         case .set:
-                            Text("Number in Set").tag(CardsRefinement.SortOrder.setNumber)
-                            Text("Number in Pokedex").tag(CardsRefinement.SortOrder.pokedexNumber)
+                            Text("Number in Set").tag(CardsRefinement.Sort.SortProperty.setNumber)
+                            Text("Number in Pokedex").tag(CardsRefinement.Sort.SortProperty.pokedexNumber)
                         case .pokedexNumber:
-                            Text("Release Date").tag(CardsRefinement.SortOrder.releaseDate)
+                            Text("Release Date").tag(CardsRefinement.Sort.SortProperty.releaseDate)
+                        case .watchlist:
+                            Text("Watched Date").tag(CardsRefinement.Sort.SortProperty.watchedDate)
+                            Text("Release Date").tag(CardsRefinement.Sort.SortProperty.releaseDate)
+                            Text("Number in Pokedex").tag(CardsRefinement.Sort.SortProperty.pokedexNumber)
                         }
+                    }
+                    Picker("Order", selection: $refinementModel.currentSort.order) {
+                        Text("Ascending").tag(CardsRefinement.Sort.SortOrder.ascending)
+                        Text("Descending").tag(CardsRefinement.Sort.SortOrder.descending)
                     }
                 }
                 Section(header: Text("Price Filters")) {

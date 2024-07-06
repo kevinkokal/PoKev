@@ -58,6 +58,13 @@ struct CardView: View {
                         .font(.title2)
                 }
                 Spacer()
+                Button {
+                    viewModel.watched.toggle()
+                } label: {
+                    Image(systemName: viewModel.watched ? "sunglasses.fill" : "sunglasses")
+                        .font(.title2)
+                }
+                Spacer()
                 if let pokedexNumbers = viewModel.card.nationalPokedexNumbers, viewModel.shouldShowPokedexButton {
                     if pokedexNumbers.count > 1 {
                         Menu {

@@ -50,6 +50,13 @@ struct SetsView: View {
                         Image(systemName: "list.number")
                     }
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        CardsView()
+                    } label: {
+                        Image(systemName: "sunglasses.fill")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         viewModel.settingsMenuIsPresented = true

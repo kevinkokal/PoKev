@@ -13,6 +13,7 @@ final class CardsViewModel {
     enum Configuration {
         case set(_ set: PokemonTCGSet)
         case pokedexNumber(_ pokedexNumber: Int)
+        case watchlist
     }
     
     let configuration: Configuration
@@ -64,11 +65,19 @@ final class CardsViewModel {
             }
         case .pokedexNumber(let pokedexNumber):
             return "Pokedex #\(pokedexNumber)"
+        case .watchlist:
+            return "Watchlist"
         }
     }
     
     var navigationSubTitle: String {
-        return "\(refinedCards.count) \(allCards.count != refinedCards.count ? "filtered " : "")cards to collect"
+        let baseSubTitle = "\(refinedCards.count) \(allCards.count != refinedCards.count ? "filtered " : "")"
+        switch configuration {
+        case .set, .pokedexNumber:
+            return baseSubTitle + "cards to collect"
+        case .watchlist:
+            return baseSubTitle + "watched cards"
+        }
     }
     
     var allImageURLStrings: [String] {
@@ -79,15 +88,22 @@ final class CardsViewModel {
     
     init(set: PokemonTCGSet) {
         configuration = .set(set)
-        refinement = CardsRefinement(initialSortOrder: .setNumber)
+        refinement = CardsRefinement(initialSort: CardsRefinement.Sort(property: .setNumber, order: .ascending))
         shouldShowPokedexButton = true
         shouldShowSetButton = false
     }
     
     init(pokedexNumber: Int) {
         configuration = .pokedexNumber(pokedexNumber)
-        refinement = CardsRefinement(initialSortOrder: .releaseDate)
+        refinement = CardsRefinement(initialSort: CardsRefinement.Sort(property: .releaseDate, order: .ascending))
         shouldShowPokedexButton = false
+        shouldShowSetButton = true
+    }
+    
+    init() {
+        configuration = .watchlist
+        refinement = CardsRefinement(initialSort: CardsRefinement.Sort(property: .watchedDate, order: .descending))
+        shouldShowPokedexButton = true
         shouldShowSetButton = true
     }
     
@@ -100,16 +116,11 @@ final class CardsViewModel {
                 allCards = try await service.getCards(for: set.id, mode: mode)
             case .pokedexNumber(let pokedexNumber):
                 allCards = try await service.getCards(for: pokedexNumber, mode: mode)
+            case .watchlist:
+                // TODO: update to get cards for a list of ids
+                allCards = try await service.getCards(for: 1, mode: mode)
             }
-            
-            let initialSortOrder: CardsRefinement.SortOrder
-            switch configuration {
-            case .set:
-                initialSortOrder = .setNumber
-            case .pokedexNumber:
-                initialSortOrder = .releaseDate
-            }
-            refinement = CardsRefinement(initialSortOrder: initialSortOrder, allRaritiesInSet: allCards.allRarities)
+            refinement = CardsRefinement(initialSort: refinement.initialSort, allRaritiesInSet: allCards.allRarities)
             refineCards(mode: mode)
         } catch let error {
             self.error = error as? RequestError
@@ -145,21 +156,21 @@ final class CardsViewModel {
         }
         
         let sortedFilteredCards = filteredCards.sorted { card1, card2 in
-            switch refinement.currentSortOrder {
+            switch refinement.currentSort.property {
             case .alphabetical:
-                return card1.name < card2.name
+                return refinement.currentSort.order == .ascending ? card1.name < card2.name : card1.name > card2.name
             case .setNumber:
-                return card1.number.localizedStandardCompare(card2.number) == .orderedAscending
+                return card1.number.localizedStandardCompare(card2.number) == (refinement.currentSort.order == .ascending ? .orderedAscending : .orderedDescending)
             case .pokedexNumber:
                 // In almost all cases, there will only be one pokedex number. When there are multiple, just grab the first.
                 if let card1FirstPokedexNumber = card1.nationalPokedexNumbers?.first {
                     if let card2FirstPokedexNumber = card2.nationalPokedexNumbers?.first {
-                        return card1FirstPokedexNumber < card2FirstPokedexNumber
+                        return refinement.currentSort.order == .ascending ? card1FirstPokedexNumber < card2FirstPokedexNumber : card1FirstPokedexNumber > card2FirstPokedexNumber
                     } else {
-                        return true
+                        return refinement.currentSort.order == .ascending
                     }
                 } else {
-                    return card2.nationalPokedexNumbers?.first == nil
+                    return refinement.currentSort.order == .ascending
                 }
             case .releaseDate:
                 let apiDateFormatter = DateFormatter()
@@ -167,13 +178,28 @@ final class CardsViewModel {
                 
                 if let card1ReleaseDate = apiDateFormatter.date(from: card1.set.releaseDate) {
                     if let card2ReleaseDate = apiDateFormatter.date(from: card2.set.releaseDate) {
-                        return card1ReleaseDate < card2ReleaseDate
+                        return refinement.currentSort.order == .ascending ? card1ReleaseDate < card2ReleaseDate : card1ReleaseDate > card2ReleaseDate
                     } else {
-                        return true
+                        return refinement.currentSort.order == .ascending
                     }
                 } else {
-                    return apiDateFormatter.date(from: card2.set.releaseDate) == nil
+                    return refinement.currentSort.order == .ascending
                 }
+            case .watchedDate:
+                // TODO: update ---------------------
+                let apiDateFormatter = DateFormatter()
+                apiDateFormatter.dateFormat = "yyyy/MM/dd"
+                
+                if let card1ReleaseDate = apiDateFormatter.date(from: card1.set.releaseDate) {
+                    if let card2ReleaseDate = apiDateFormatter.date(from: card2.set.releaseDate) {
+                        return refinement.currentSort.order == .ascending ? card1ReleaseDate < card2ReleaseDate : card1ReleaseDate > card2ReleaseDate
+                    } else {
+                        return refinement.currentSort.order == .ascending
+                    }
+                } else {
+                    return refinement.currentSort.order == .ascending
+                }
+                // ---------------------------
             }
         }
                 
@@ -192,11 +218,22 @@ final class CardsViewModel {
 }
 
 struct CardsRefinement: Equatable {
-    enum SortOrder {
-        case alphabetical
-        case setNumber
-        case pokedexNumber
-        case releaseDate
+    struct Sort: Equatable {
+        enum SortProperty {
+            case alphabetical
+            case setNumber
+            case pokedexNumber
+            case releaseDate
+            case watchedDate
+        }
+        
+        enum SortOrder {
+            case ascending
+            case descending
+        }
+        
+        var property: SortProperty
+        var order: SortOrder
     }
     
     struct Filters: Equatable {
@@ -219,26 +256,26 @@ struct CardsRefinement: Equatable {
         }
     }
     
-    let initialSortOrder: SortOrder
-    var currentSortOrder: SortOrder
+    let initialSort: Sort
+    var currentSort: Sort
     var filters: Filters
     
     var isDefault: Bool {
-        return currentSortOrder == initialSortOrder && filters.isDefault
+        return currentSort == initialSort && filters.isDefault
     }
     
-    init(initialSortOrder: SortOrder, filters: Filters? = nil, allRaritiesInSet: Set<String> = Set<String>()) {
-        self.initialSortOrder = initialSortOrder
-        self.currentSortOrder = initialSortOrder
+    init(initialSort: Sort, filters: Filters? = nil, allRaritiesInSet: Set<String> = Set<String>()) {
+        self.initialSort = initialSort
+        self.currentSort = initialSort
         self.filters = filters ?? Filters(allRaritiesInSet: allRaritiesInSet)
     }
     
     static func == (lhs: CardsRefinement, rhs: CardsRefinement) -> Bool {
-        return lhs.filters == rhs.filters && lhs.currentSortOrder == rhs.currentSortOrder && lhs.initialSortOrder == rhs.initialSortOrder
+        return lhs.filters == rhs.filters && lhs.currentSort == rhs.currentSort && lhs.initialSort == rhs.initialSort
     }
     
     mutating func reset() {
-        currentSortOrder = initialSortOrder
+        currentSort = initialSort
         filters = Filters(allRaritiesInSet: filters.allRaritiesInSet)
     }
 }
