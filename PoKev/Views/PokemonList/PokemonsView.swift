@@ -47,7 +47,3 @@ struct PokemonsView: View {
         .searchable(text: $viewModel.searchText)
     }
 }
-
-#Preview {
-    PokemonsView()
-}

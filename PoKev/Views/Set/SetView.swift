@@ -62,7 +62,3 @@ struct SetView: View {
         .padding(.all, 8)
     }
 }
-
-#Preview {
-    SetView(set: PokemonTCGSet(id: "test", name: "Test", series: "Dev", printedTotal: 16, total: 19, releaseDate: "2024/01/26", images: PokemonTCGSetImages(symbol: "https://images.pokemontcg.io/base3/symbol.png", logo: "https://images.pokemontcg.io/base3/logo.png")))
-}

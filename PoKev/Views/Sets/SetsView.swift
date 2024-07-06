@@ -158,7 +158,3 @@ class PokevSettings: Equatable {
         return settings
     }
 }
-
-#Preview {
-    SetsView()
-}

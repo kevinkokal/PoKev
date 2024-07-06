@@ -11,8 +11,9 @@ import Foundation
 
 protocol PokemonTCGAPIServiceable {
     func getSets(for mode: PokevSettings.Mode) async throws -> [PokemonTCGSet]
-    func getCards(for setId: String, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard]
-    func getCards(for pokedexNumber: Int, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard]
+    func getCards(with setId: String, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard]
+    func getCards(with pokedexNumber: Int, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard]
+    func getCards(with ids: [String]) async throws -> [PokemonTCGCard]
 }
 
 struct PokemonTCGAPIService: HTTPClient, PokemonTCGAPIServiceable {
@@ -20,11 +21,15 @@ struct PokemonTCGAPIService: HTTPClient, PokemonTCGAPIServiceable {
         return try await sendRequest(endpoint: SetsEndpoint.sets(mode: mode), responseModel: PokemonTCGSetsResponse.self).sets
     }
     
-    func getCards(for setId: String, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard] {
+    func getCards(with setId: String, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard] {
         return try await sendRequest(endpoint: CardsEndpoint.cardsBySetId(setId, mode: mode), responseModel: PokemonTCGCardsResponse.self).cards
     }
     
-    func getCards(for pokedexNumber: Int, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard] {
+    func getCards(with pokedexNumber: Int, mode: PokevSettings.Mode) async throws -> [PokemonTCGCard] {
         return try await sendRequest(endpoint: CardsEndpoint.cardsByPokedexNumber(pokedexNumber, mode: mode), responseModel: PokemonTCGCardsResponse.self).cards
+    }
+    
+    func getCards(with ids: [String]) async throws -> [PokemonTCGCard] {
+        return try await sendRequest(endpoint: CardsEndpoint.cardsByIds(ids), responseModel: PokemonTCGCardsResponse.self).cards
     }
 }

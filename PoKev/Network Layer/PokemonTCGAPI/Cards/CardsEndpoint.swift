@@ -10,12 +10,13 @@ import Foundation
 enum CardsEndpoint {
     case cardsBySetId(_ setId: String, mode: PokevSettings.Mode)
     case cardsByPokedexNumber(_ pokedexNumber: Int, mode: PokevSettings.Mode)
+    case cardsByIds(_ ids: [String])
 }
 
 extension CardsEndpoint: PokemonTCGEndpoint {
     var path: String {
         switch self {
-        case .cardsBySetId, .cardsByPokedexNumber:
+        case .cardsBySetId, .cardsByPokedexNumber, .cardsByIds:
             return "/v2/cards"
         }
     }
@@ -48,6 +49,14 @@ extension CardsEndpoint: PokemonTCGEndpoint {
             case .kevin:
                 searchQuery = "nationalPokedexNumbers:\(pokedexNumber) -set.series:Other -set.series:NP -series:POP -set.name:\"Black Star Promos\" -set.name:\"EX Trainer Kit\" -set.name:\"Kalos Starter Set\" -set.name:\"Scarlet %26 Violet Energies\" -set.name:\"Celebrations: Classic Collection\" -set.name:\"Legendary Collection\" -set.name:\"Emerging Powers\" -set.name:\"Base Set 2\""
             }
+            
+            queryItems = [
+                URLQueryItem(name: "orderBy", value: "set.releaseDate,number"),
+                URLQueryItem(name: "select", value: "id,name,set,number,images,tcgplayer,nationalPokedexNumbers,rarity")
+            ]
+            
+        case .cardsByIds(let ids):
+            searchQuery = "(\(ids.map { "id:\($0)" }.joined(separator: " OR ")))"
             
             queryItems = [
                 URLQueryItem(name: "orderBy", value: "set.releaseDate,number"),

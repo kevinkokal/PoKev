@@ -100,7 +100,3 @@ struct CarouselImage: View {
         .motionManager(updateInterval: 0.1, disabled: false)
     }
 }
-
-#Preview {
-    CarouselView(imageURLStrings: ["https://prices.pokemontcg.io/tcgplayer/base1-72", "https://prices.pokemontcg.io/tcgplayer/base1-71", "https://prices.pokemontcg.io/tcgplayer/base1-70", "https://prices.pokemontcg.io/tcgplayer/base1-69"])
-}

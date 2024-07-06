@@ -113,12 +113,11 @@ final class CardsViewModel {
             let service = PokemonTCGAPIService()
             switch configuration {
             case .set(let set):
-                allCards = try await service.getCards(for: set.id, mode: mode)
+                allCards = try await service.getCards(with: set.id, mode: mode)
             case .pokedexNumber(let pokedexNumber):
-                allCards = try await service.getCards(for: pokedexNumber, mode: mode)
+                allCards = try await service.getCards(with: pokedexNumber, mode: mode)
             case .watchlist:
-                // TODO: update to get cards for a list of ids
-                allCards = try await service.getCards(for: 1, mode: mode)
+                allCards = try await service.getCards(with: ["sm9-182", "base1-15"])
             }
             refinement = CardsRefinement(initialSort: refinement.initialSort, allRaritiesInSet: allCards.allRarities)
             refineCards(mode: mode)
@@ -147,10 +146,15 @@ final class CardsViewModel {
                 }
             }
             
-            switch mode {
-            case .kevin:
-                return card.nationalPokedexNumbers?.allSatisfy({ $0 >= 1 && $0 <= 151 }) ?? false
-            case .alana, .unrestricted:
+            switch configuration {
+            case .set, .pokedexNumber:
+                switch mode {
+                case .kevin:
+                    return card.nationalPokedexNumbers?.allSatisfy({ $0 >= 1 && $0 <= 151 }) ?? false
+                case .alana, .unrestricted:
+                    return true
+                }
+            case .watchlist:
                 return true
             }
         }
@@ -219,7 +223,7 @@ final class CardsViewModel {
 
 struct CardsRefinement: Equatable {
     struct Sort: Equatable {
-        enum SortProperty {
+        enum Property {
             case alphabetical
             case setNumber
             case pokedexNumber
@@ -227,13 +231,13 @@ struct CardsRefinement: Equatable {
             case watchedDate
         }
         
-        enum SortOrder {
+        enum Order {
             case ascending
             case descending
         }
         
-        var property: SortProperty
-        var order: SortOrder
+        var property: Property
+        var order: Order
     }
     
     struct Filters: Equatable {

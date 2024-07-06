@@ -102,22 +102,22 @@ struct RefinementForm: View {
             Form {
                 Section(header: Text("Sort")) {
                     Picker("Property", selection: $refinementModel.currentSort.property) {
-                        Text("Alphabetical").tag(CardsRefinement.Sort.SortProperty.alphabetical)
+                        Text("Alphabetical").tag(CardsRefinement.Sort.Property.alphabetical)
                         switch configuration {
                         case .set:
-                            Text("Number in Set").tag(CardsRefinement.Sort.SortProperty.setNumber)
-                            Text("Number in Pokedex").tag(CardsRefinement.Sort.SortProperty.pokedexNumber)
+                            Text("Number in Set").tag(CardsRefinement.Sort.Property.setNumber)
+                            Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
                         case .pokedexNumber:
-                            Text("Release Date").tag(CardsRefinement.Sort.SortProperty.releaseDate)
+                            Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
                         case .watchlist:
-                            Text("Watched Date").tag(CardsRefinement.Sort.SortProperty.watchedDate)
-                            Text("Release Date").tag(CardsRefinement.Sort.SortProperty.releaseDate)
-                            Text("Number in Pokedex").tag(CardsRefinement.Sort.SortProperty.pokedexNumber)
+                            Text("Watched Date").tag(CardsRefinement.Sort.Property.watchedDate)
+                            Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
+                            Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
                         }
                     }
                     Picker("Order", selection: $refinementModel.currentSort.order) {
-                        Text("Ascending").tag(CardsRefinement.Sort.SortOrder.ascending)
-                        Text("Descending").tag(CardsRefinement.Sort.SortOrder.descending)
+                        Text("Ascending").tag(CardsRefinement.Sort.Order.ascending)
+                        Text("Descending").tag(CardsRefinement.Sort.Order.descending)
                     }
                 }
                 Section(header: Text("Price Filters")) {
@@ -213,8 +213,3 @@ struct CarouselButton: View {
         }
     }
 }
-
-#Preview {
-    CardsView(set: PokemonTCGSet(id: "test", name: "Test", series: "Dev", printedTotal: 16, total: 19, releaseDate: "2024/01/26", images: PokemonTCGSetImages(symbol: "https://images.pokemontcg.io/base3/symbol.png", logo: "https://images.pokemontcg.io/base3/logo.png")))
-}
-

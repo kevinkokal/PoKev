@@ -42,7 +42,3 @@ struct PokemonView: View {
         .padding(.all, 8)
     }
 }
-
-#Preview {
-    PokemonView(name: "Bulbasaur", number: 1)
-}
