@@ -6,12 +6,15 @@
 //
 
 import LookingGlassUI
+import SwiftData
 import SwiftUI
 
 struct SetsView: View {
+    @Environment(\.modelContext) var modelContext
+    @Query private var storedSettings: [PokevSettings]
     @State var viewModel = SetsViewModel()
-    @State var settingsModel = PokevSettings()
-    @State var previousSettingsModel = PokevSettings()
+    @State var settingsModel: PokevSettings?
+    @State var previousSettingsModel: PokevSettings?
     
     var body: some View {
         NavigationStack {
@@ -70,14 +73,25 @@ struct SetsView: View {
                     Task {
                         await viewModel.fetchSets(with: settingsModel)
                     }
-                    previousSettingsModel = settingsModel.copy()
+                    previousSettingsModel = settingsModel?.copy()
                 }
              }) {
-                 SettingsForm(settingsModel: $settingsModel)
+                 SettingsForm(settingsModel: Binding($settingsModel)!)
                      .presentationDetents([.fraction(0.50)])
                      .presentationDragIndicator(.visible)
             }
         }
+        .onAppear(perform: {
+            if let storedSettings = storedSettings.first {
+                settingsModel = storedSettings
+                previousSettingsModel = storedSettings
+            } else {
+                let newSettingsModel = PokevSettings()
+                modelContext.insert(newSettingsModel)
+                settingsModel = newSettingsModel
+                previousSettingsModel = newSettingsModel
+            }
+        })
         .searchable(text: $viewModel.searchText)
         .environment(settingsModel)
     }
@@ -132,7 +146,7 @@ struct PokeBallProgressView: View {
     }
 }
 
-@Observable
+@Model
 class PokevSettings: Equatable {
     static func == (lhs: PokevSettings, rhs: PokevSettings) -> Bool {
         lhs.includeCommonsAndUncommons == rhs.includeCommonsAndUncommons && lhs.onlyGenerationOne == rhs.onlyGenerationOne && lhs.onlyStandardSets == rhs.onlyStandardSets
@@ -146,6 +160,12 @@ class PokevSettings: Equatable {
         return includeCommonsAndUncommons && onlyGenerationOne && onlyStandardSets
     }
     
+    init(includeCommonsAndUncommons: Bool = true, onlyGenerationOne: Bool = true, onlyStandardSets: Bool = true) {
+        self.includeCommonsAndUncommons = includeCommonsAndUncommons
+        self.onlyGenerationOne = onlyGenerationOne
+        self.onlyStandardSets = onlyStandardSets
+    }
+    
     func reset() {
         includeCommonsAndUncommons = true
         onlyGenerationOne = true
@@ -153,10 +173,7 @@ class PokevSettings: Equatable {
     }
     
     func copy() -> PokevSettings {
-        let settings = PokevSettings()
-        settings.includeCommonsAndUncommons = includeCommonsAndUncommons
-        settings.onlyGenerationOne = onlyGenerationOne
-        settings.onlyStandardSets = onlyStandardSets
+        let settings = PokevSettings(includeCommonsAndUncommons: includeCommonsAndUncommons, onlyGenerationOne: onlyGenerationOne, onlyStandardSets: onlyStandardSets)
         return settings
     }
 }

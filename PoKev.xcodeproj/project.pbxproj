@@ -35,6 +35,7 @@
 		AC7C7E302B60255C00454F5D /* PoKevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */; };
 		AC7C7E3A2B60255C00454F5D /* PoKevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E392B60255C00454F5D /* PoKevUITests.swift */; };
 		AC7C7E3C2B60255C00454F5D /* PoKevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */; };
+		AC95D01C2C42BF0F00A6B026 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC95D01B2C42BF0F00A6B026 /* CloudKit.framework */; };
 		ACC7A39E2B90C8570082B0CF /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A39D2B90C8570082B0CF /* CarouselView.swift */; };
 		ACC7A3A02B90DC920082B0CF /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A39F2B90DC920082B0CF /* CacheAsyncImage.swift */; };
 		ACC7A3A32B990E600082B0CF /* PokeAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3A22B990E600082B0CF /* PokeAPIService.swift */; };
@@ -99,6 +100,7 @@
 		AC7C7E352B60255C00454F5D /* PoKevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoKevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7C7E392B60255C00454F5D /* PoKevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITests.swift; sourceTree = "<group>"; };
 		AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AC95D01B2C42BF0F00A6B026 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		ACC7A39D2B90C8570082B0CF /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		ACC7A39F2B90DC920082B0CF /* CacheAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAsyncImage.swift; sourceTree = "<group>"; };
 		ACC7A3A22B990E600082B0CF /* PokeAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeAPIService.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC95D01C2C42BF0F00A6B026 /* CloudKit.framework in Frameworks */,
 				ACF3CA712B7EAE3400CB0DDB /* MultiPicker in Frameworks */,
 				ACF3CA692B7D34CD00CB0DDB /* LookingGlassUI in Frameworks */,
 			);
@@ -256,6 +259,7 @@
 				AC7C7E2E2B60255C00454F5D /* PoKevTests */,
 				AC7C7E382B60255C00454F5D /* PoKevUITests */,
 				AC7C7E1B2B60255A00454F5D /* Products */,
+				AC95D01A2C42BF0F00A6B026 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +310,14 @@
 				AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */,
 			);
 			path = PoKevUITests;
+			sourceTree = "<group>";
+		};
+		AC95D01A2C42BF0F00A6B026 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC95D01B2C42BF0F00A6B026 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		ACC7A3A12B990B1D0082B0CF /* PokeAPI */ = {
@@ -665,6 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PoKev/PoKev.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PoKev/Preview Content\"";
@@ -672,6 +685,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PoKev/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -687,8 +701,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PoKev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kokal.pokev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -704,6 +719,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PoKev/PoKev.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PoKev/Preview Content\"";
@@ -711,6 +727,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PoKev/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -726,8 +743,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PoKev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kokal.pokev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
