@@ -16,6 +16,14 @@ struct SetsView: View {
     @State var settingsModel: PokevSettings?
     @State var previousSettingsModel: PokevSettings?
     
+    var sortUpArrowColor: Color {
+        viewModel.flipSortOrder ? .accentColor : .primary
+    }
+    
+    var sortDownArrowColor: Color {
+        viewModel.flipSortOrder ? .primary : .accentColor
+    }
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -61,6 +69,15 @@ struct SetsView: View {
                         Image(systemName: "tag.fill")
                     }
                 } */
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        viewModel.flipSortOrder.toggle()
+                    }, label: {
+                        Image(systemName: "arrow.up.arrow.down")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(sortUpArrowColor, sortDownArrowColor)
+                    })
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         viewModel.settingsMenuIsPresented = true

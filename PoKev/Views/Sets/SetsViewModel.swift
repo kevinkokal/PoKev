@@ -20,6 +20,11 @@ final class SetsViewModel {
     var shouldPresentError = false
     var isFetchingSets = false
     var settingsMenuIsPresented = false
+    var flipSortOrder = false {
+        didSet {
+            setsToDisplay = setsToDisplay.reversed()
+        }
+    }
     
     var searchText = "" {
         didSet {
@@ -41,7 +46,8 @@ final class SetsViewModel {
         
         isFetchingSets = true
         do {
-            allSets = try await PokemonTCGAPIService().getSets(with: settings)
+            let sets = try await PokemonTCGAPIService().getSets(with: settings)
+            allSets = flipSortOrder ? sets.reversed() : sets
             isFetchingSets = false
         } catch let error {
             self.error = error as? RequestError
@@ -52,9 +58,10 @@ final class SetsViewModel {
     
     func filterSets() {
         if searchText.isEmpty {
-            setsToDisplay = allSets
+            setsToDisplay = flipSortOrder ? allSets.reversed() : allSets
         } else {
-            setsToDisplay = allSets.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            let filteredSets = allSets.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            setsToDisplay = flipSortOrder ? filteredSets.reversed() : filteredSets
         }
     }
 }
