@@ -57,13 +57,15 @@ struct CardView: View {
                     Image(systemName: "cart.fill.badge.questionmark")
                         .font(.title2)
                 }
-                Spacer()
-                Button {
-                    viewModel.watched.toggle()
+                // TODO: tag
+                /*Spacer()
+                Menu {
+                    Button("Watch", action: watch)
+                    Button("Favorite", action: favorite)
                 } label: {
-                    Image(systemName: viewModel.watched ? "sunglasses.fill" : "sunglasses")
+                    Image(systemName: viewModel.watched ? "tag.fill" : "tag")
                         .font(.title2)
-                }
+                }*/
                 Spacer()
                 if let pokedexNumbers = viewModel.card.nationalPokedexNumbers, viewModel.shouldShowPokedexButton {
                     if pokedexNumbers.count > 1 {
@@ -102,5 +104,12 @@ struct CardView: View {
                     .stroke(highlightColor, lineWidth: 2)
             }
         }
+    }
+    
+    func favorite() { 
+        viewModel.watched.toggle()
+    }
+    func watch() { 
+        viewModel.watched.toggle()
     }
 }

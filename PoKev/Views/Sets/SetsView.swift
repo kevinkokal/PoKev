@@ -53,13 +53,14 @@ struct SetsView: View {
                         Image(systemName: "list.number")
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
+                // TODO: tags
+                /* ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
                         CardsView()
                     } label: {
-                        Image(systemName: "sunglasses.fill")
+                        Image(systemName: "tag.fill")
                     }
-                }
+                } */
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         viewModel.settingsMenuIsPresented = true

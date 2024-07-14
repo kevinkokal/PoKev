@@ -109,7 +109,7 @@ struct RefinementForm: View {
                             Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
                         case .pokedexNumber:
                             Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
-                        case .watchlist:
+                        case .tagged:
                             Text("Watched Date").tag(CardsRefinement.Sort.Property.watchedDate)
                             Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
                             Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
