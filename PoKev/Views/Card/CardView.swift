@@ -58,14 +58,24 @@ struct CardView: View {
                         .font(.title2)
                 }
                 // TODO: tag
-                /*Spacer()
+                Spacer()
                 Menu {
-                    Button("Watch", action: watch)
-                    Button("Favorite", action: favorite)
+                    Picker("Tags", selection: Binding($viewModel.bindingTag, deselectTo: .hidden)) {
+                        ForEach(Tag.allCases) { item in
+                            if item != .hidden {
+                                Image(systemName: viewModel.selectedTags.contains(item) ? "tag.fill" : "tag")
+                            }
+                        }
+                    }
+                    .pickerStyle(.palette)
+                    .onChange(of: viewModel.bindingTag) { _, tag in
+                        viewModel.selectTag(tag)
+                    }
                 } label: {
                     Image(systemName: viewModel.watched ? "tag.fill" : "tag")
                         .font(.title2)
-                }*/
+                }
+                .onTapGesture { }
                 Spacer()
                 if let pokedexNumbers = viewModel.card.nationalPokedexNumbers, viewModel.shouldShowPokedexButton {
                     if pokedexNumbers.count > 1 {

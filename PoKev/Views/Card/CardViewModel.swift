@@ -9,6 +9,13 @@ import Foundation
 import Observation
 import SwiftUI
 
+enum Tag: String, CaseIterable, Identifiable {
+    var id: Self { self }
+    
+    case tag1, tag2, tag3, tag4, tag5
+    case hidden
+}
+
 @Observable
 final class CardViewModel {
     let card: PokemonTCGCard
@@ -16,6 +23,10 @@ final class CardViewModel {
     let shouldShowPokedexButton: Bool
     let shouldShowSetButton: Bool
     var watched = false
+    var bindingTag: Tag = .hidden
+    
+    // TODO: init with saved tags
+    var selectedTags: Set<Tag> = []
 
     var imageURL: URL? {
         if let urlString = card.images.small {
@@ -50,5 +61,14 @@ final class CardViewModel {
         self.set = set
         self.shouldShowPokedexButton = shouldShowPokedexButton
         self.shouldShowSetButton = shouldShowSetButton
+    }
+    
+    func selectTag(_ tag: Tag) {
+        if tag == .hidden {
+            return
+        } else if selectedTags.remove(tag) == nil {
+            selectedTags.insert(tag)
+        }
+        bindingTag = .hidden
     }
 }

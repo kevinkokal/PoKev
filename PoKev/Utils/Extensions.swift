@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension String {
     func matches(for regex: String) -> [String] {
@@ -55,5 +56,13 @@ private extension DecodingError.Context {
             result.append(description)
         }
         return result
+    }
+}
+
+extension Binding where Value: Equatable {
+    init(_ source: Binding<Value>, deselectTo value: Value) {
+        self.init(get: { source.wrappedValue },
+                  set: { source.wrappedValue = $0 == source.wrappedValue ? value : $0 }
+        )
     }
 }
