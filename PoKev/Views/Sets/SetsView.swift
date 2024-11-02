@@ -61,14 +61,6 @@ struct SetsView: View {
                         Image(systemName: "list.number")
                     }
                 }
-                // TODO: tags
-                /* ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink {
-                        CardsView()
-                    } label: {
-                        Image(systemName: "tag.fill")
-                    }
-                } */
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         viewModel.flipSortOrder.toggle()

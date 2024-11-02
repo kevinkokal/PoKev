@@ -22,10 +22,6 @@ struct CardsView: View {
         viewModel = CardsViewModel(pokedexNumber: pokedexNumber)
     }
     
-    init() {
-        viewModel = CardsViewModel()
-    }
-    
     var body: some View {
         Group {
             if viewModel.isFetchingCards {
@@ -109,10 +105,6 @@ struct RefinementForm: View {
                             Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
                         case .pokedexNumber:
                             Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
-                        case .tagged:
-                            Text("Watched Date").tag(CardsRefinement.Sort.Property.watchedDate)
-                            Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
-                            Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
                         }
                     }
                     Picker("Order", selection: $refinementModel.currentSort.order) {
