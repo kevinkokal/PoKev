@@ -36,7 +36,7 @@ final class CardsViewModel {
     var selectedCard: PokemonTCGCard?
     
     var refinementMenuIsPresented = false
-    var refinement: CardsRefinement
+    var refinement: CardsRefinementConfiguration
     
     var carouselViewIsPresented = false
     
@@ -63,7 +63,7 @@ final class CardsViewModel {
                 return "\(set.name) Set"
             }
         case .pokedexNumber(let pokedexNumber):
-            return "Pokedex #\(pokedexNumber)"
+            return "Pokédex #\(pokedexNumber)"
         }
     }
     
@@ -83,19 +83,19 @@ final class CardsViewModel {
     
     init(set: PokemonTCGSet) {
         configuration = .set(set)
-        refinement = CardsRefinement(initialSort: CardsRefinement.Sort(property: .setNumber, order: .forward))
+        refinement = CardsRefinementConfiguration(initialSort: CardsRefinementConfiguration.Sort(property: .setNumber, order: .forward))
         shouldShowPokedexButton = true
         shouldShowSetButton = false
     }
     
     init(pokedexNumber: Int) {
         configuration = .pokedexNumber(pokedexNumber)
-        refinement = CardsRefinement(initialSort: CardsRefinement.Sort(property: .releaseDate, order: .forward))
+        refinement = CardsRefinementConfiguration(initialSort: CardsRefinementConfiguration.Sort(property: .releaseDate, order: .forward))
         shouldShowPokedexButton = false
         shouldShowSetButton = true
     }
     
-    @MainActor func fetchCards(with settings: PokevSettings) async {
+    @MainActor func fetchCards(with settings: PoKevSettings) async {
         isFetchingCards = true
         do {
             let service = PokemonTCGAPIService()
@@ -105,7 +105,7 @@ final class CardsViewModel {
             case .pokedexNumber(let pokedexNumber):
                 allCards = try await service.getCards(with: pokedexNumber, settings: settings)
             }
-            refinement = CardsRefinement(initialSort: refinement.initialSort, allRaritiesInSet: allCards.allRarities)
+            refinement = CardsRefinementConfiguration(initialSort: refinement.initialSort, allRaritiesInSet: allCards.allRarities)
             refineCards(with: settings)
         } catch let error {
             self.error = error as? RequestError
@@ -114,7 +114,7 @@ final class CardsViewModel {
         isFetchingCards = false
     }
     
-    func refineCards(with settings: PokevSettings) {
+    func refineCards(with settings: PoKevSettings) {
         let filteredCards = allCards.filter { card in
             if refinement.filters.onlyPotentialDeals {
                 if !card.isPotentialDeal {
@@ -188,7 +188,7 @@ final class CardsViewModel {
     }
 }
 
-struct CardsRefinement: Equatable {
+struct CardsRefinementConfiguration: Equatable {
     struct Sort: Equatable {
         enum Property {
             case alphabetical
@@ -235,7 +235,7 @@ struct CardsRefinement: Equatable {
         self.filters = filters ?? Filters(allRaritiesInSet: allRaritiesInSet)
     }
     
-    static func == (lhs: CardsRefinement, rhs: CardsRefinement) -> Bool {
+    static func == (lhs: CardsRefinementConfiguration, rhs: CardsRefinementConfiguration) -> Bool {
         return lhs.filters == rhs.filters && lhs.currentSort == rhs.currentSort && lhs.initialSort == rhs.initialSort
     }
     

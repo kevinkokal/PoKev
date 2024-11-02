@@ -15,7 +15,6 @@ final class CardViewModel {
     let set: PokemonTCGSet
     let shouldShowPokedexButton: Bool
     let shouldShowSetButton: Bool
-    var watched = false
 
     var imageURL: URL? {
         if let urlString = card.images.small {
@@ -44,6 +43,8 @@ final class CardViewModel {
         
         return card.isPotentialDeal ? highlightColor : nil
     }
+    
+    let selectPokedexNumberMessage = "Select Pokedex Number"
     
     init(card: PokemonTCGCard, set: PokemonTCGSet, shouldShowPokedexButton: Bool, shouldShowSetButton: Bool) {
         self.card = card

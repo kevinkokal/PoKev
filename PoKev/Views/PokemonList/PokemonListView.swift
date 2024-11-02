@@ -1,5 +1,5 @@
 //
-//  PokemonsView.swift
+//  PokemonListView.swift
 //  PoKev
 //
 //  Created by Kevin Kokal on 3/6/24.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct PokemonsView: View {
+struct PokemonListView: View {
     @State private var viewModel = PokemonListViewModel()
-    @Environment(PokevSettings.self) var settings
+    @Environment(PoKevSettings.self) var settings
     
     var body: some View {
         ScrollView() {
@@ -43,7 +43,7 @@ struct PokemonsView: View {
             }
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.shouldPresentError) {}
-        .navigationTitle("Pokemon")
+        .navigationTitle(viewModel.title)
         .searchable(text: $viewModel.searchText)
     }
 }

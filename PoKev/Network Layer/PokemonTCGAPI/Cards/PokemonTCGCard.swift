@@ -26,6 +26,7 @@ struct PokemonTCGCard: Decodable, Identifiable, Equatable {
         lhs.id == rhs.id
     }
     
+    // Custom logic for determining a deal based on set release data, price data, card printing type
     var isPotentialDeal: Bool {
         if let holofoilPriceData = tcgplayer?.prices?.holofoil, let directLow = holofoilPriceData.directLow, let market = holofoilPriceData.market {
             return directLow <= market

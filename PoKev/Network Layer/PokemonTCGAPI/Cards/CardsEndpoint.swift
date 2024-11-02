@@ -8,8 +8,8 @@
 import Foundation
 
 enum CardsEndpoint {
-    case cardsBySetId(_ setId: String, settings: PokevSettings)
-    case cardsByPokedexNumber(_ pokedexNumber: Int, settings: PokevSettings)
+    case cardsBySetId(_ setId: String, settings: PoKevSettings)
+    case cardsByPokedexNumber(_ pokedexNumber: Int, settings: PoKevSettings)
     case cardsByIds(_ ids: [String])
 }
 

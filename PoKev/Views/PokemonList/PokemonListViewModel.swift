@@ -32,9 +32,11 @@ final class PokemonListViewModel {
             return "Unknown error"
         }
     }
+    
+    let title = "Pokémon"
 
     @MainActor
-    func fetchPokemon(with settings: PokevSettings) async {
+    func fetchPokemon(with settings: PoKevSettings) async {
         isFetchingPokemon = true
         do {
             allPokemon = try await PokeAPIService().getPokemonsMetadata(with: settings)

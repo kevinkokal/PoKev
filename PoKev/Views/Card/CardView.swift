@@ -61,7 +61,7 @@ struct CardView: View {
                 if let pokedexNumbers = viewModel.card.nationalPokedexNumbers, viewModel.shouldShowPokedexButton {
                     if pokedexNumbers.count > 1 {
                         Menu {
-                            Text("Select Pokedex Number")
+                            Text(viewModel.selectPokedexNumberMessage)
                             ForEach(pokedexNumbers, id: \.self) { pokedexNumber in
                                 NavigationLink {
                                     CardsView(pokedexNumber: pokedexNumber)
@@ -95,12 +95,5 @@ struct CardView: View {
                     .stroke(highlightColor, lineWidth: 2)
             }
         }
-    }
-    
-    func favorite() { 
-        viewModel.watched.toggle()
-    }
-    func watch() { 
-        viewModel.watched.toggle()
     }
 }

@@ -35,13 +35,21 @@
 		AC7C7E302B60255C00454F5D /* PoKevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E2F2B60255C00454F5D /* PoKevTests.swift */; };
 		AC7C7E3A2B60255C00454F5D /* PoKevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E392B60255C00454F5D /* PoKevUITests.swift */; };
 		AC7C7E3C2B60255C00454F5D /* PoKevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */; };
+		ACB916C82CD67F8C00C1373C /* PokeBallProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916C72CD67F8500C1373C /* PokeBallProgressView.swift */; };
+		ACB916CA2CD67FD100C1373C /* SettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916C92CD67FCC00C1373C /* SettingsForm.swift */; };
+		ACB916CD2CD67FFC00C1373C /* PoKevSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916CC2CD67FF900C1373C /* PoKevSettings.swift */; };
+		ACB916CF2CD6818F00C1373C /* CardsRefinementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916CE2CD6818700C1373C /* CardsRefinementConfiguration.swift */; };
+		ACB916D22CD681FE00C1373C /* CardsRefinementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916D12CD681FA00C1373C /* CardsRefinementButton.swift */; };
+		ACB916D52CD6822B00C1373C /* CarouselButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916D42CD6822400C1373C /* CarouselButton.swift */; };
+		ACB916D72CD6826300C1373C /* CardsRefinementForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916D62CD6826000C1373C /* CardsRefinementForm.swift */; };
+		ACB916D92CD682CA00C1373C /* NoCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB916D82CD682C600C1373C /* NoCardsView.swift */; };
 		ACC7A39E2B90C8570082B0CF /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A39D2B90C8570082B0CF /* CarouselView.swift */; };
 		ACC7A3A02B90DC920082B0CF /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A39F2B90DC920082B0CF /* CacheAsyncImage.swift */; };
 		ACC7A3A32B990E600082B0CF /* PokeAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3A22B990E600082B0CF /* PokeAPIService.swift */; };
 		ACC7A3A52B990EF10082B0CF /* PokeAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3A42B990EF10082B0CF /* PokeAPIEndpoint.swift */; };
 		ACC7A3A82B990F4E0082B0CF /* PokemonEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3A72B990F4E0082B0CF /* PokemonEndpoint.swift */; };
 		ACC7A3AA2B9910070082B0CF /* PokemonsMetadataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3A92B9910070082B0CF /* PokemonsMetadataResponse.swift */; };
-		ACC7A3AD2B99119D0082B0CF /* PokemonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3AC2B99119D0082B0CF /* PokemonsView.swift */; };
+		ACC7A3AD2B99119D0082B0CF /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3AC2B99119D0082B0CF /* PokemonListView.swift */; };
 		ACC7A3AF2B9912040082B0CF /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3AE2B9912040082B0CF /* PokemonListViewModel.swift */; };
 		ACC7A3B12B99501D0082B0CF /* PokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3B02B99501D0082B0CF /* PokemonView.swift */; };
 		ACC7A3B32B9950BA0082B0CF /* PokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7A3B22B9950BA0082B0CF /* PokemonViewModel.swift */; };
@@ -100,13 +108,21 @@
 		AC7C7E392B60255C00454F5D /* PoKevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITests.swift; sourceTree = "<group>"; };
 		AC7C7E3B2B60255C00454F5D /* PoKevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC8C4D1B2C440766007603F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACB916C72CD67F8500C1373C /* PokeBallProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeBallProgressView.swift; sourceTree = "<group>"; };
+		ACB916C92CD67FCC00C1373C /* SettingsForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsForm.swift; sourceTree = "<group>"; };
+		ACB916CC2CD67FF900C1373C /* PoKevSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoKevSettings.swift; sourceTree = "<group>"; };
+		ACB916CE2CD6818700C1373C /* CardsRefinementConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsRefinementConfiguration.swift; sourceTree = "<group>"; };
+		ACB916D12CD681FA00C1373C /* CardsRefinementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsRefinementButton.swift; sourceTree = "<group>"; };
+		ACB916D42CD6822400C1373C /* CarouselButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselButton.swift; sourceTree = "<group>"; };
+		ACB916D62CD6826000C1373C /* CardsRefinementForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsRefinementForm.swift; sourceTree = "<group>"; };
+		ACB916D82CD682C600C1373C /* NoCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCardsView.swift; sourceTree = "<group>"; };
 		ACC7A39D2B90C8570082B0CF /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		ACC7A39F2B90DC920082B0CF /* CacheAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAsyncImage.swift; sourceTree = "<group>"; };
 		ACC7A3A22B990E600082B0CF /* PokeAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeAPIService.swift; sourceTree = "<group>"; };
 		ACC7A3A42B990EF10082B0CF /* PokeAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeAPIEndpoint.swift; sourceTree = "<group>"; };
 		ACC7A3A72B990F4E0082B0CF /* PokemonEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEndpoint.swift; sourceTree = "<group>"; };
 		ACC7A3A92B9910070082B0CF /* PokemonsMetadataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsMetadataResponse.swift; sourceTree = "<group>"; };
-		ACC7A3AC2B99119D0082B0CF /* PokemonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsView.swift; sourceTree = "<group>"; };
+		ACC7A3AC2B99119D0082B0CF /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
 		ACC7A3AE2B9912040082B0CF /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
 		ACC7A3B02B99501D0082B0CF /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
 		ACC7A3B22B9950BA0082B0CF /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
@@ -195,6 +211,7 @@
 		AC5D8E412B62FDEF008A025A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ACB916C72CD67F8500C1373C /* PokeBallProgressView.swift */,
 				ACC7A3AB2B99118F0082B0CF /* PokemonList */,
 				AC5D8E4D2B669B77008A025A /* Card */,
 				AC5D8E482B669AE2008A025A /* Cards */,
@@ -207,6 +224,7 @@
 		AC5D8E422B62FE02008A025A /* Sets */ = {
 			isa = PBXGroup;
 			children = (
+				ACB916CB2CD67FE200C1373C /* Settings */,
 				AC7C7E1F2B60255A00454F5D /* SetsView.swift */,
 				AC1D37642B60572A009161C3 /* SetsViewModel.swift */,
 			);
@@ -225,9 +243,11 @@
 		AC5D8E482B669AE2008A025A /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				ACB916D32CD6821300C1373C /* Carousel */,
+				ACB916D02CD6819D00C1373C /* Refinement */,
 				AC5D8E492B669AF1008A025A /* CardsView.swift */,
 				AC5D8E4B2B669AFB008A025A /* CardsViewModel.swift */,
-				ACC7A39D2B90C8570082B0CF /* CarouselView.swift */,
+				ACB916D82CD682C600C1373C /* NoCardsView.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -318,6 +338,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		ACB916CB2CD67FE200C1373C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				ACB916CC2CD67FF900C1373C /* PoKevSettings.swift */,
+				ACB916C92CD67FCC00C1373C /* SettingsForm.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		ACB916D02CD6819D00C1373C /* Refinement */ = {
+			isa = PBXGroup;
+			children = (
+				ACB916D62CD6826000C1373C /* CardsRefinementForm.swift */,
+				ACB916D12CD681FA00C1373C /* CardsRefinementButton.swift */,
+				ACB916CE2CD6818700C1373C /* CardsRefinementConfiguration.swift */,
+			);
+			path = Refinement;
+			sourceTree = "<group>";
+		};
+		ACB916D32CD6821300C1373C /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				ACB916D42CD6822400C1373C /* CarouselButton.swift */,
+				ACC7A39D2B90C8570082B0CF /* CarouselView.swift */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
 		ACC7A3A12B990B1D0082B0CF /* PokeAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,7 +390,7 @@
 			children = (
 				ACC7A3B02B99501D0082B0CF /* PokemonView.swift */,
 				ACC7A3B22B9950BA0082B0CF /* PokemonViewModel.swift */,
-				ACC7A3AC2B99119D0082B0CF /* PokemonsView.swift */,
+				ACC7A3AC2B99119D0082B0CF /* PokemonListView.swift */,
 				ACC7A3AE2B9912040082B0CF /* PokemonListViewModel.swift */,
 			);
 			path = PokemonList;
@@ -416,7 +464,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					AC7C7E192B60255900454F5D = {
 						CreatedOnToolsVersion = 15.2;
@@ -490,7 +538,10 @@
 				AC5D8E542B66EA20008A025A /* Extensions.swift in Sources */,
 				AC1D37612B605111009161C3 /* PokemonTCGSet.swift in Sources */,
 				AC1D37542B604F74009161C3 /* PokemonTCGAPIService.swift in Sources */,
+				ACB916CD2CD67FFC00C1373C /* PoKevSettings.swift in Sources */,
 				AC5D8E452B62FE1F008A025A /* SetView.swift in Sources */,
+				ACB916CF2CD6818F00C1373C /* CardsRefinementConfiguration.swift in Sources */,
+				ACB916C82CD67F8C00C1373C /* PokeBallProgressView.swift in Sources */,
 				AC5D8E402B62ADD8008A025A /* PokemonTCGPlayerData.swift in Sources */,
 				ACC7A39E2B90C8570082B0CF /* CarouselView.swift in Sources */,
 				AC7C7E202B60255A00454F5D /* SetsView.swift in Sources */,
@@ -503,12 +554,16 @@
 				AC1D375E2B604F9C009161C3 /* PokemonTCGEndpoint.swift in Sources */,
 				AC5D8E3A2B62AD30008A025A /* CardsEndpoint.swift in Sources */,
 				ACC7A3A52B990EF10082B0CF /* PokeAPIEndpoint.swift in Sources */,
-				ACC7A3AD2B99119D0082B0CF /* PokemonsView.swift in Sources */,
+				ACC7A3AD2B99119D0082B0CF /* PokemonListView.swift in Sources */,
 				ACC7A3AF2B9912040082B0CF /* PokemonListViewModel.swift in Sources */,
 				AC5D8E4C2B669AFB008A025A /* CardsViewModel.swift in Sources */,
 				ACC7A3AA2B9910070082B0CF /* PokemonsMetadataResponse.swift in Sources */,
+				ACB916CA2CD67FD100C1373C /* SettingsForm.swift in Sources */,
 				AC1D37652B60572A009161C3 /* SetsViewModel.swift in Sources */,
+				ACB916D72CD6826300C1373C /* CardsRefinementForm.swift in Sources */,
+				ACB916D22CD681FE00C1373C /* CardsRefinementButton.swift in Sources */,
 				AC5D8E3E2B62AD4C008A025A /* PokemonTCGCardsResponse.swift in Sources */,
+				ACB916D92CD682CA00C1373C /* NoCardsView.swift in Sources */,
 				AC1D37572B604F74009161C3 /* RequestMethod.swift in Sources */,
 				ACC7A3B12B99501D0082B0CF /* PokemonView.swift in Sources */,
 				AC1D37582B604F74009161C3 /* HTTPClient.swift in Sources */,
@@ -518,6 +573,7 @@
 				ACC7A3B32B9950BA0082B0CF /* PokemonViewModel.swift in Sources */,
 				AC5D8E512B669B91008A025A /* CardView.swift in Sources */,
 				AC5D8E4F2B669B88008A025A /* CardViewModel.swift in Sources */,
+				ACB916D52CD6822B00C1373C /* CarouselButton.swift in Sources */,
 				ACC7A3A02B90DC920082B0CF /* CacheAsyncImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,7 +840,6 @@
 		AC7C7E432B60255C00454F5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -807,7 +862,6 @@
 		AC7C7E442B60255C00454F5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -830,7 +884,6 @@
 		AC7C7E462B60255C00454F5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -852,7 +905,6 @@
 		AC7C7E472B60255C00454F5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;

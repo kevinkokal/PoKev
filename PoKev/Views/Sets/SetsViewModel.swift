@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 final class SetsViewModel {
@@ -20,6 +21,7 @@ final class SetsViewModel {
     var shouldPresentError = false
     var isFetchingSets = false
     var settingsMenuIsPresented = false
+    
     var flipSortOrder = false {
         didSet {
             setsToDisplay = setsToDisplay.reversed()
@@ -39,9 +41,19 @@ final class SetsViewModel {
             return "Unknown error"
         }
     }
+    
+    let title = "Pokémon TCG Sets"
+    
+    var sortUpArrowColor: Color {
+        flipSortOrder ? .accentColor : .primary
+    }
+    
+    var sortDownArrowColor: Color {
+        flipSortOrder ? .primary : .accentColor
+    }
 
     @MainActor
-    func fetchSets(with settings: PokevSettings) async {
+    func fetchSets(with settings: PoKevSettings) async {
         isFetchingSets = true
         do {
             let sets = try await PokemonTCGAPIService().getSets(with: settings)

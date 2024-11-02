@@ -1,7 +1,7 @@
 //
 //  CacheAsyncImage.swift
 //
-//  Created by Costantino Pistagna on 08/02/23.
+//  https://gist.github.com/crazymanish/f03a4aefe036bb8a9097df0a6fc18057
 //
 
 import SwiftUI

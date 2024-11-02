@@ -5,11 +5,10 @@
 //  Created by Kevin Kokal on 1/28/24.
 //
 
-import MultiPicker
 import SwiftUI
 
 struct CardsView: View {
-    @Environment(PokevSettings.self) var settings
+    @Environment(PoKevSettings.self) var settings
     @State var viewModel: CardsViewModel
     
     private let gridItemLayout =  [GridItem(.flexible()), GridItem(.flexible())]
@@ -27,7 +26,7 @@ struct CardsView: View {
             if viewModel.isFetchingCards {
                 PokeBallProgressView()
             } else if viewModel.shouldShowNoResultsScreen {
-                NoResultsScreen(refinementMenuIsPresented: $viewModel.refinementMenuIsPresented)
+                NoCardsView(refinementMenuIsPresented: $viewModel.refinementMenuIsPresented)
             } else {
                 ScrollView() {
                     LazyVGrid(columns: gridItemLayout, spacing: 16) {
@@ -61,7 +60,7 @@ struct CardsView: View {
             ToolbarItem {
                 HStack {
                     CarouselButton(viewModel: $viewModel)
-                    RefinementButton(viewModel: $viewModel)
+                    CardsRefinementButton(viewModel: $viewModel)
                 }
             }
         }
@@ -73,135 +72,5 @@ struct CardsView: View {
             }
         }
         .searchable(text: $viewModel.searchText)
-    }
-    
-    enum ActiveSheet {
-       case first, second
-       var id: Int {
-          hashValue
-       }
-    }
-}
-
-struct RefinementForm: View {
-    @Environment(\.dismiss) var dismiss
-    @Binding var refinementModel: CardsRefinement
-    private let configuration: CardsViewModel.Configuration
-    
-    init(refinementModel: Binding<CardsRefinement>, configuration: CardsViewModel.Configuration) {
-        _refinementModel = refinementModel
-        self.configuration = configuration
-    }
-    
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Sort")) {
-                    Picker("Property", selection: $refinementModel.currentSort.property) {
-                        Text("Alphabetical").tag(CardsRefinement.Sort.Property.alphabetical)
-                        switch configuration {
-                        case .set:
-                            Text("Number in Set").tag(CardsRefinement.Sort.Property.setNumber)
-                            Text("Number in Pokedex").tag(CardsRefinement.Sort.Property.pokedexNumber)
-                        case .pokedexNumber:
-                            Text("Release Date").tag(CardsRefinement.Sort.Property.releaseDate)
-                        }
-                    }
-                    Picker("Order", selection: $refinementModel.currentSort.order) {
-                        Text("Ascending").tag(SortOrder.forward)
-                        Text("Descending").tag(SortOrder.reverse)
-                    }
-                }
-                Section(header: Text("Price Filters")) {
-                    Toggle("Only show potential deals", isOn: $refinementModel.filters.onlyPotentialDeals)
-                }
-                Section(header: Text("Rarity Filters")) {
-                    MultiPicker("Only show certain rarities", selection: $refinementModel.filters.rarities) {
-                        ForEach(Array(refinementModel.filters.allRaritiesInSet), id:\.self) { rarity in
-                            Text(rarity).mpTag(rarity)
-                        }
-                    }
-                }
-            }
-            .navigationBarItems(leading: Button("Reset", action: { refinementModel.reset() }).disabled(refinementModel.isDefault), trailing: Button("Done", action: { dismiss() }))
-            .navigationTitle("Refine")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
-
-struct NoResultsScreen: View {
-    @Binding var refinementMenuIsPresented: Bool
-    
-    init(refinementMenuIsPresented: Binding<Bool>) {
-        _refinementMenuIsPresented = refinementMenuIsPresented
-    }
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            Image(.confusedPsyduck)
-                .resizable()
-                .frame(width: 256, height: 256)
-                .padding(.bottom, 8)
-            Text("No Pokemon found...")
-                .font(.system(.headline, design: .rounded))
-            Button(action: {
-                refinementMenuIsPresented = true
-            }) {
-                Text("Try changing or resetting filters!")
-                    .font(.system(.subheadline, design: .rounded))
-            }
-            Spacer()
-        }
-    }
-}
-
-struct RefinementButton: View {
-    @Binding var viewModel: CardsViewModel
-    @Environment(PokevSettings.self) var settings
-    
-    init(viewModel: Binding<CardsViewModel>) {
-        _viewModel = viewModel
-    }
-    
-    var body: some View {
-        Button(action: {
-            viewModel.refinementMenuIsPresented = true
-        }) {
-            if viewModel.refinement.isDefault {
-                Image(systemName: "line.3.horizontal.decrease.circle")
-            } else {
-                Image(systemName: "line.3.horizontal.decrease.circle.fill")
-            }
-        }
-        .disabled(viewModel.isFetchingCards)
-        .sheet(isPresented: $viewModel.refinementMenuIsPresented, onDismiss: {
-            viewModel.refineCards(with: settings)
-         }) {
-            RefinementForm(refinementModel: $viewModel.refinement, configuration: viewModel.configuration)
-        }
-    }
-}
-
-struct CarouselButton: View {
-    @Binding var viewModel: CardsViewModel
-    
-    init(viewModel: Binding<CardsViewModel>) {
-        _viewModel = viewModel
-    }
-    
-    var body: some View {
-        Button(action: {
-            viewModel.carouselViewIsPresented = true
-        }) {
-            Image(systemName: "square.3.layers.3d.down.left")
-        }
-        .disabled(viewModel.isFetchingCards)
-        .sheet(isPresented: $viewModel.carouselViewIsPresented) {
-            CarouselView(imageURLStrings: viewModel.allImageURLStrings)
-                .presentationDetents([.fraction(0.80)])
-                .presentationDragIndicator(.visible)
-        }
     }
 }
