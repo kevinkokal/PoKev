@@ -41,9 +41,7 @@ final class SetsViewModel {
     }
 
     @MainActor
-    func fetchSets(with settings: PokevSettings?) async {
-        guard let settings else { return }
-        
+    func fetchSets(with settings: PokevSettings) async {
         isFetchingSets = true
         do {
             let sets = try await PokemonTCGAPIService().getSets(with: settings)

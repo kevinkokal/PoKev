@@ -1,4 +1,5 @@
 {
+  "originHash" : "c90118da25df667ab936c5d2088b6a731aa32a34ec5d76d70cf99137667847f1",
   "pins" : [
     {
       "identity" : "helpers",
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

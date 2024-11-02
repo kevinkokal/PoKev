@@ -5,7 +5,6 @@
 //  Created by Kevin Kokal on 1/23/24.
 //
 
-import SwiftData
 import SwiftUI
 
 @main
@@ -14,6 +13,5 @@ struct PoKevApp: App {
         WindowGroup {
             SetsView()
         }
-        .modelContainer(for: PokevSettings.self)
     }
 }

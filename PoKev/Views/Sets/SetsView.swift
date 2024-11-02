@@ -6,15 +6,12 @@
 //
 
 import LookingGlassUI
-import SwiftData
 import SwiftUI
 
 struct SetsView: View {
-    @Environment(\.modelContext) var modelContext
-    @Query private var storedSettings: [PokevSettings]
     @State var viewModel = SetsViewModel()
-    @State var settingsModel: PokevSettings?
-    @State var previousSettingsModel: PokevSettings?
+    @State var settingsModel = PokevSettings()
+    @State var previousSettingsModel = PokevSettings()
     
     var sortUpArrowColor: Color {
         viewModel.flipSortOrder ? .accentColor : .primary
@@ -83,25 +80,14 @@ struct SetsView: View {
                     Task {
                         await viewModel.fetchSets(with: settingsModel)
                     }
-                    previousSettingsModel = settingsModel?.copy()
+                    previousSettingsModel = settingsModel.copy()
                 }
              }) {
-                 SettingsForm(settingsModel: Binding($settingsModel)!)
+                 SettingsForm(settingsModel: $settingsModel)
                      .presentationDetents([.fraction(0.50)])
                      .presentationDragIndicator(.visible)
             }
         }
-        .onAppear(perform: {
-            if let storedSettings = storedSettings.first {
-                settingsModel = storedSettings
-                previousSettingsModel = storedSettings
-            } else {
-                let newSettingsModel = PokevSettings()
-                modelContext.insert(newSettingsModel)
-                settingsModel = newSettingsModel
-                previousSettingsModel = newSettingsModel
-            }
-        })
         .searchable(text: $viewModel.searchText)
         .environment(settingsModel)
     }
@@ -156,7 +142,7 @@ struct PokeBallProgressView: View {
     }
 }
 
-@Model
+@Observable
 class PokevSettings: Equatable {
     static func == (lhs: PokevSettings, rhs: PokevSettings) -> Bool {
         lhs.includeCommonsAndUncommons == rhs.includeCommonsAndUncommons && lhs.onlyGenerationOne == rhs.onlyGenerationOne && lhs.onlyStandardSets == rhs.onlyStandardSets
